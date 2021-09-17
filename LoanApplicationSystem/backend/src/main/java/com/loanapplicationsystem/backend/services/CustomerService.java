@@ -2,6 +2,7 @@ package com.loanapplicationsystem.backend.services;
 
 import com.loanapplicationsystem.backend.dtos.CustomerDtoInput;
 import com.loanapplicationsystem.backend.dtos.CustomerDtoOutput;
+import com.loanapplicationsystem.backend.exceptions.CustomerIsAlreadyExistException;
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.loanapplicationsystem.backend.utils.ErrorMessage.CUSTOMER_FOUND;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -21,6 +24,14 @@ public class CustomerService {
 
     @Transactional
     public Optional<Customer> create(CustomerDtoInput request) {
+        Optional<Customer> customerOptional = customerRepository.
+                findByIdentificationNumber(request.getIdentificationNumber());
+
+        if(customerOptional.isPresent()){
+            throw new CustomerIsAlreadyExistException(
+                    String.format(CUSTOMER_FOUND, request.getIdentificationNumber()));
+        }
+
         Customer customer = customerRepository.save(
                 customerMapper.map(request));
 

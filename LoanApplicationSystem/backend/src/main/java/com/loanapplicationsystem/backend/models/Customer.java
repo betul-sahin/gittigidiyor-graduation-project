@@ -13,7 +13,7 @@ import javax.persistence.Enumerated;
 @NoArgsConstructor
 @Entity
 public class Customer extends AbstractBaseEntity {
-    private int identificationNumber;
+    private String identificationNumber;
     private String firstName;
     private String LastName;
     private double monthlyIncome;

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerDtoOutput {
     private long id;
-    private int identificationNumber;
+    private String identificationNumber;
     private String firstName;
     private String LastName;
     private double monthlyIncome;

@@ -20,6 +20,7 @@ public class CustomerController {
 
     @PostMapping
     public ResponseEntity<Customer> create(CustomerDtoInput request){
+
         Optional<Customer> customerOptional = customService.create(request);
 
         if(!customerOptional.isPresent()){
