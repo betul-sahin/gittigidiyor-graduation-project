@@ -5,6 +5,7 @@ import com.loanapplicationsystem.backend.dtos.CustomerDtoOutput;
 import com.loanapplicationsystem.backend.exceptions.CustomerIsAlreadyExistException;
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
+import com.loanapplicationsystem.backend.models.enums.CreditResult;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,14 @@ public class CustomerService {
                 findByIdentificationNumber(request.getIdentificationNumber());
 
         if(customerOptional.isPresent()){
-            throw new CustomerIsAlreadyExistException(
-                    String.format(CUSTOMER_FOUND, request.getIdentificationNumber()));
+            throw new CustomerIsAlreadyExistException(CUSTOMER_FOUND);
         }
 
-        Customer customer = customerRepository.save(
-                customerMapper.map(request));
+        Customer customer = customerMapper.map(request);
 
-        return Optional.of(customer);
+        Customer savedCustomer = customerRepository.save(customer);
+
+        return Optional.of(savedCustomer);
     }
 
     @Transactional(readOnly = true)
