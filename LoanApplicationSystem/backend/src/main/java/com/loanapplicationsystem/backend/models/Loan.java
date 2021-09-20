@@ -17,6 +17,6 @@ public class Loan extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private CreditResult creditResult;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 }

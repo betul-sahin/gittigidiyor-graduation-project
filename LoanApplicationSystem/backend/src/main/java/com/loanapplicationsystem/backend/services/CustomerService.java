@@ -3,6 +3,7 @@ package com.loanapplicationsystem.backend.services;
 import com.loanapplicationsystem.backend.dtos.CustomerDtoInput;
 import com.loanapplicationsystem.backend.dtos.CustomerDtoOutput;
 import com.loanapplicationsystem.backend.exceptions.CustomerIsAlreadyExistException;
+import com.loanapplicationsystem.backend.exceptions.CustomerNotFoundException;
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.models.enums.CreditResult;
@@ -16,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.loanapplicationsystem.backend.utils.ErrorMessage.CUSTOMER_FOUND;
+import static com.loanapplicationsystem.backend.utils.ErrorMessage.CUSTOMER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -49,7 +51,8 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public CustomerDtoOutput findById(long id) {
-        Customer customer = customerRepository.findById(id).get();
+        Customer customer = customerRepository.findById(id).
+                orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
 
         return customerMapper.mapToDto(customer);
     }

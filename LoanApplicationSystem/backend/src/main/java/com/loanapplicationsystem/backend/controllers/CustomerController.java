@@ -19,7 +19,7 @@ public class CustomerController {
     private CustomerService customService;
 
     @PostMapping
-    public ResponseEntity<Customer> create(CustomerDtoInput request){
+    public ResponseEntity<Customer> create(@RequestBody CustomerDtoInput request){
 
         Optional<Customer> customerOptional = customService.create(request);
 
@@ -45,7 +45,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public ResponseEntity<Customer> update(CustomerDtoInput request){
+    public ResponseEntity<Customer> update(@RequestBody CustomerDtoInput request){
         Optional<Customer> customerOptional = customService.update(request);
 
         if(!customerOptional.isPresent()){

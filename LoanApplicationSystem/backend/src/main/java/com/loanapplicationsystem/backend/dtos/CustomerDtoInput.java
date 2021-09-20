@@ -15,3 +15,6 @@ public class CustomerDtoInput {
     private double monthlyIncome;
     private int phoneNumber;
 }
+
+
+// TODO : Validasyonlar yazılacak
