@@ -17,6 +17,8 @@
         <java.version>1.8</java.version>
         <io.springfox.version>2.9.2</io.springfox.version>
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+        <app.image.name>gittigidiyor-graduation-project-betul-sahin</app.image.name>
+        <app.image.tag/>
     </properties>
     <dependencies>
         <dependency>
@@ -142,9 +144,7 @@
         </plugins>
     </build>
     <profiles>
-    <!-- Docker hub a puslamak
-
-        <profile>
+          <profile>
             <id>jib-push-to-dockerhub</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -172,7 +172,7 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <to>
-                                        <image>docker.io/korayguney/${app.image.name}:${app.image.tag}</image>
+                                        <image>docker.io/betulsahinn/${app.image.name}:${app.image.tag}</image>
                                     </to>
                                 </configuration>
                                 <goals>
@@ -184,7 +184,7 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <to>
-                                        <image>docker.io/korayguney/${app.image.name}:latest</image>
+                                        <image>docker.io/betulsahinn/${app.image.name}:latest</image>
                                     </to>
                                 </configuration>
                                 <goals>
@@ -224,7 +224,7 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <to>
-                                        <image>korayguney/${app.image.name}:${app.image.tag}</image>
+                                        <image>betulsahinn/${app.image.name}:${app.image.tag}</image>
                                     </to>
                                 </configuration>
                                 <goals>
@@ -236,7 +236,7 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <to>
-                                        <image>korayguney/${app.image.name}:latest</image>
+                                        <image>betulsahinn/${app.image.name}:latest</image>
                                     </to>
                                 </configuration>
                                 <goals>
@@ -248,7 +248,7 @@
                 </plugins>
             </build>
         </profile>
-    -->
+
 
         <profile>
             <id>build-frontend</id>
