@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Entity
 public class Loan extends AbstractBaseEntity {
     private double creditAmount;
-    private int creditLimitMultiplier;
+    private int creditLimitMultiplier = 4;
     @Enumerated(EnumType.STRING)
     private CreditResult creditResult;
 

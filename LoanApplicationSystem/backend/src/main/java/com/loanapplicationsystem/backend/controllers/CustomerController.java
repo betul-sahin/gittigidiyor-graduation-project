@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class CustomerController {
     private CustomerService customService;
 
     @PostMapping
-    public ResponseEntity<Customer> create(@RequestBody CustomerDtoInput request){
+    public ResponseEntity<Customer> create(@Valid @RequestBody CustomerDtoInput request){
 
         Optional<Customer> customerOptional = customService.create(request);
 
@@ -45,7 +46,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    public ResponseEntity<Customer> update(@RequestBody CustomerDtoInput request){
+    public ResponseEntity<Customer> update(@Valid@RequestBody CustomerDtoInput request){
         Optional<Customer> customerOptional = customService.update(request);
 
         if(!customerOptional.isPresent()){

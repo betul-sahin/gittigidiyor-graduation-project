@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class LoanController {
     private final LoanService loanService;
 
     @PostMapping
-    public ResponseEntity<Loan> create(@RequestBody LoanDtoInput request){
+    public ResponseEntity<Loan> create(@Valid @RequestBody LoanDtoInput request){
         Optional<Loan> loanOptional = loanService.create(request);
 
         if(!loanOptional.isPresent()){
@@ -50,7 +51,7 @@ public class LoanController {
     }
 
     @PutMapping
-    public ResponseEntity<Loan> update(@RequestBody LoanDtoInput request){
+    public ResponseEntity<Loan> update(@Valid @RequestBody LoanDtoInput request){
         Optional<Loan> loanOptional = loanService.update(request);
 
         if(!loanOptional.isPresent()){
