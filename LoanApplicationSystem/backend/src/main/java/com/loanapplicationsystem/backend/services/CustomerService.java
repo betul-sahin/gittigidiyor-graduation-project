@@ -5,11 +5,13 @@ import com.loanapplicationsystem.backend.dtos.CustomerDtoOutput;
 import com.loanapplicationsystem.backend.exceptions.CustomerIsAlreadyExistException;
 import com.loanapplicationsystem.backend.exceptions.CustomerNotFoundException;
 import com.loanapplicationsystem.backend.exceptions.IdentificationNumberNotValidException;
+import com.loanapplicationsystem.backend.exceptions.PhoneNumberNotValidException;
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
 import com.loanapplicationsystem.backend.utils.ErrorMessages;
 import com.loanapplicationsystem.backend.utils.IdentificationNumberValidator;
+import com.loanapplicationsystem.backend.utils.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,9 +29,11 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final IdentificationNumberValidator identificationNumberValidator;
+    private final PhoneNumberValidator phoneNumberValidator;
 
     @Transactional
     public Optional<Customer> create(CustomerDtoInput request) {
+
         // Is the identification number valid ?
         boolean isValidIdentificationNumber = identificationNumberValidator.
                 test(request.getIdentificationNumber());
@@ -44,6 +48,12 @@ public class CustomerService {
 
         if (customerOptional.isPresent()) {
             throw new CustomerIsAlreadyExistException(CUSTOMER_FOUND);
+        }
+
+        // Is the phone number valid ?
+        boolean isValidPhoneNumber = phoneNumberValidator.test(request.getPhoneNumber());
+        if(!isValidPhoneNumber){
+            throw new PhoneNumberNotValidException(ErrorMessages.PHONE_NUMBER_NOT_VALID);
         }
 
         Customer customer = customerMapper.map(request);
