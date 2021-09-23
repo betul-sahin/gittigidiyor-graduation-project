@@ -6,7 +6,6 @@ import com.loanapplicationsystem.backend.exceptions.CustomerIsAlreadyExistExcept
 import com.loanapplicationsystem.backend.exceptions.CustomerNotFoundException;
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
-import com.loanapplicationsystem.backend.models.enums.CreditResult;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,8 +15,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.loanapplicationsystem.backend.utils.ErrorMessage.CUSTOMER_FOUND;
-import static com.loanapplicationsystem.backend.utils.ErrorMessage.CUSTOMER_NOT_FOUND;
+import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_FOUND;
+import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
