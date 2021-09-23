@@ -11,7 +11,7 @@ public class CustomerDtoOutput {
     private long id;
     private String identificationNumber;
     private String firstName;
-    private String LastName;
+    private String lastName;
     private double monthlyIncome;
     private String phoneNumber;
 }
