@@ -37,7 +37,7 @@ public class LoanService {
     private final CustomerRepository customerRepository;
     private final LoanTransactionLoggerRepository loanTransactionLoggerRepository;
     private final LoanMapper loanMapper;
-    private ClientRequestInfo clientRequestInfo;
+    private final ClientRequestInfo clientRequestInfo;
 
     @Transactional
     public Optional<Loan> create(LoanDtoInput request) {
