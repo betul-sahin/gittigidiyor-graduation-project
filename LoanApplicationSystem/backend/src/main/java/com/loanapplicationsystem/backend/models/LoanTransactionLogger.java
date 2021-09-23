@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 public class LoanTransactionLogger extends AbstractBaseEntity {
-    private long customerId;
+    private Long customerId;
     private double creditAmount;
     @Enumerated(EnumType.STRING)
     private CreditResult creditResult;

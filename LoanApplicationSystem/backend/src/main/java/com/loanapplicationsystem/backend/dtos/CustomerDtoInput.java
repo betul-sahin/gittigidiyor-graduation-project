@@ -33,6 +33,7 @@ public class CustomerDtoInput {
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private double monthlyIncome;
 
+    @ApiModelProperty(example = "05231231212")
     @NotEmpty
     private String phoneNumber;
 }

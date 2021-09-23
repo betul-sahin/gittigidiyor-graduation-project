@@ -26,6 +26,14 @@ public class GlobalExceptionHandler {
         return response;
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({IdentificationNumberNotValidException.class})
+    @ResponseBody
+    public AppErrorResponse handleException(IdentificationNumberNotValidException ex){
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return response;
+    }
+
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({CustomerNotFoundException.class})
     @ResponseBody

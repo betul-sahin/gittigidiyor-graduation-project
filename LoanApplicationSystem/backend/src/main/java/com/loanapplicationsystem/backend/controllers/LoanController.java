@@ -21,6 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/loans")
 @RequiredArgsConstructor
+@CrossOrigin
 public class LoanController {
     private final LoanService loanService;
 

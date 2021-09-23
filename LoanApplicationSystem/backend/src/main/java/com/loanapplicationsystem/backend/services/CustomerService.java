@@ -4,9 +4,12 @@ import com.loanapplicationsystem.backend.dtos.CustomerDtoInput;
 import com.loanapplicationsystem.backend.dtos.CustomerDtoOutput;
 import com.loanapplicationsystem.backend.exceptions.CustomerIsAlreadyExistException;
 import com.loanapplicationsystem.backend.exceptions.CustomerNotFoundException;
+import com.loanapplicationsystem.backend.exceptions.IdentificationNumberNotValidException;
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
+import com.loanapplicationsystem.backend.utils.ErrorMessages;
+import com.loanapplicationsystem.backend.utils.IdentificationNumberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +26,23 @@ import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_NOT
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final IdentificationNumberValidator identificationNumberValidator;
 
     @Transactional
     public Optional<Customer> create(CustomerDtoInput request) {
+        // Is the identification number valid ?
+        boolean isValidIdentificationNumber = identificationNumberValidator.
+                test(request.getIdentificationNumber());
+
+        if (!isValidIdentificationNumber) {
+            throw new IdentificationNumberNotValidException(ErrorMessages.IDENTIFICATION_NUMBER_NOT_VALID);
+        }
+
+        // Is the customer already registered ?
         Optional<Customer> customerOptional = customerRepository.
                 findByIdentificationNumber(request.getIdentificationNumber());
 
-        if(customerOptional.isPresent()){
+        if (customerOptional.isPresent()) {
             throw new CustomerIsAlreadyExistException(CUSTOMER_FOUND);
         }
 
@@ -41,7 +54,7 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public List<CustomerDtoOutput> findAll(){
+    public List<CustomerDtoOutput> findAll() {
         return customerRepository.findAll()
                 .stream()
                 .map(customerMapper::mapToDto)

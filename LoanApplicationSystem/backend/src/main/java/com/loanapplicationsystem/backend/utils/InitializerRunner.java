@@ -32,14 +32,14 @@ public class InitializerRunner implements CommandLineRunner {
         customer1.setFirstName("Gibbie");
         customer1.setLastName("Wyndham");
         customer1.setMonthlyIncome(159000.0);
-        customer1.setPhoneNumber("(644) 2485563");
+        customer1.setPhoneNumber("05231231212");
 
         Customer customer2 = new Customer();
         customer2.setIdentificationNumber("80376873280");
         customer2.setFirstName("Charita");
         customer2.setLastName("Gurko");
         customer2.setMonthlyIncome(2359000.0);
-        customer2.setPhoneNumber("(501) 3570140");
+        customer2.setPhoneNumber("05231231212");
 
         List<Customer> customerList = Arrays.asList(customer1, customer2);
         customerRepository.saveAll(customerList);
