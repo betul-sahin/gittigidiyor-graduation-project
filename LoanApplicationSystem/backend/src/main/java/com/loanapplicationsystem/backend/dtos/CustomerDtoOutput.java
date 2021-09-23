@@ -13,6 +13,5 @@ public class CustomerDtoOutput {
     private String firstName;
     private String LastName;
     private double monthlyIncome;
-    private int phoneNumber;
-    private String creditResult;
+    private String phoneNumber;
 }

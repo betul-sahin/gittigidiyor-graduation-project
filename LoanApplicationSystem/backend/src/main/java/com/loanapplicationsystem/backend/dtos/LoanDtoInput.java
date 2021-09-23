@@ -26,5 +26,5 @@ public class LoanDtoInput {
 
     @NotEmpty
     @NumberFormat(style = NumberFormat.Style.NUMBER)
-    private int customerId;
+    private long customerId;
 }

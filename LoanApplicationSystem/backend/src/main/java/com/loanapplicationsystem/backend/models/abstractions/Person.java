@@ -6,5 +6,5 @@ import lombok.Data;
 public abstract class Person extends AbstractBaseEntity{
     private String firstName;
     private String LastName;
-    private int phoneNumber;
+    private String phoneNumber;
 }

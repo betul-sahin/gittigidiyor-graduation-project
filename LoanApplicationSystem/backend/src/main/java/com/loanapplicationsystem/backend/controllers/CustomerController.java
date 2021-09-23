@@ -16,8 +16,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/customers")
 @RequiredArgsConstructor
+@CrossOrigin(origins = { "http://localhost:3000" })
 public class CustomerController {
-    private CustomerService customService;
+    private final CustomerService customService;
 
     @PostMapping
     public ResponseEntity<Customer> create(@Valid @RequestBody CustomerDtoInput request){

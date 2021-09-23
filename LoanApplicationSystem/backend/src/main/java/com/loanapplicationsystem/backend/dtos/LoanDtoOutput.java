@@ -10,5 +10,5 @@ public class LoanDtoOutput {
     private double creditAmount;
     private int creditLimitMultiplier;
     private String creditResult;
-    private int customerId;
+    private long customerId;
 }
