@@ -12,6 +12,8 @@ import com.loanapplicationsystem.backend.models.enums.CreditResult;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
 import com.loanapplicationsystem.backend.repositories.LoanRepository;
 import com.loanapplicationsystem.backend.repositories.LoanTransactionLoggerRepository;
+import com.loanapplicationsystem.backend.services.abstractions.LoanService;
+import com.loanapplicationsystem.backend.services.abstractions.LoanTransactionLoggerService;
 import com.loanapplicationsystem.backend.utils.ClientRequestInfo;
 import com.loanapplicationsystem.backend.utils.LoanValidator;
 import lombok.RequiredArgsConstructor;
@@ -32,14 +34,13 @@ import static com.loanapplicationsystem.backend.utils.ErrorMessages.LOAN_NOT_FOU
 
 @Service
 @RequiredArgsConstructor
-public class LoanService {
+public class LoanServiceImpl implements LoanService {
     private final LoanRepository loanRepository;
     private final CustomerRepository customerRepository;
-    private final LoanTransactionLoggerRepository loanTransactionLoggerRepository;
     private final LoanMapper loanMapper;
-    private final ClientRequestInfo clientRequestInfo;
 
     @Transactional
+    @Override
     public Optional<Loan> create(LoanDtoInput request) {
 
         Customer customer = customerRepository.findById(request.getCustomerId()).
@@ -68,19 +69,17 @@ public class LoanService {
         loan.setCustomer(customer);
         Loan savedLoan = loanRepository.save(loan);
 
-        // save transactions of loan
-        this.saveLoanTransaction(customer, savedLoan);
-
         // bilgilendirme sms i gonder
 
         // endpointten onay durum bilgisi ve kredi bilgisi dön
 
         // return new CreditResultResponse();
 
-        return Optional.of(loan);
+        return Optional.of(savedLoan);
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<LoanDtoOutput> findAll() {
         return loanRepository.findAll()
                 .stream()
@@ -89,7 +88,8 @@ public class LoanService {
     }
 
     @Transactional(readOnly = true)
-    public LoanDtoOutput findById(long id) {
+    @Override
+    public LoanDtoOutput findById(Long id) {
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() -> new LoanNotFoundException(LOAN_NOT_FOUND));
 
@@ -97,64 +97,14 @@ public class LoanService {
     }
 
     @Transactional
+    @Override
     public Optional<Loan> update(LoanDtoInput request) {
         return Optional.of(new Loan());
     }
 
     @Transactional
-    public void deleteById(long id) {
+    @Override
+    public void deleteById(Long id) {
         loanRepository.deleteById(id);
-    }
-
-    private void saveLoanTransaction(Customer customer,
-                                     Loan loan) {
-
-        LoanTransactionLogger transactionLogger = new LoanTransactionLogger();
-        transactionLogger.setCustomerId(customer.getId());
-        transactionLogger.setCreditAmount(loan.getCreditAmount());
-        transactionLogger.setCreditResult(loan.getCreditResult());
-        transactionLogger.setRequestDate(LocalDate.now());
-        transactionLogger.setClientIpAdress(clientRequestInfo.getClientIpAdress());
-        transactionLogger.setClientUrl(clientRequestInfo.getClientUrl());
-        transactionLogger.setSessionActivityId(clientRequestInfo.getSessionActivityId());
-
-        this.loanTransactionLoggerRepository.save(transactionLogger);
-    }
-
-    public Page<List<LoanTransactionLogger>> getAllTransactionsWithDate(String transactionDate,
-                                                                        Integer pageNumber,
-                                                                        Integer pageSize,
-                                                                        Pageable pageable) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LoanValidator.validateTransactionDate(transactionDate, formatter);
-        LocalDate transactionDateResult = LocalDate.parse(transactionDate, formatter);
-
-        if(pageNumber != null && pageSize != null){
-            pageable = PageRequest.of(pageNumber, pageSize);
-        }
-
-        return loanTransactionLoggerRepository.findAllByRequestDate(transactionDateResult, pageable);
-    }
-
-    public Page<List<LoanTransactionLogger>> getAllByCustomerId(long customerId,
-                                                                Integer pageNumber,
-                                                                Integer pageSize,
-                                                                Pageable pageable){
-        if(pageNumber != null && pageSize != null){
-            pageable = PageRequest.of(pageNumber, pageSize);
-        }
-
-        return loanTransactionLoggerRepository.findAllByCustomerId(customerId, pageable);
-    }
-
-    public Page<List<LoanTransactionLogger>> getAllByCreditResult(String creditResult,
-                                                                  Integer pageNumber,
-                                                                  Integer pageSize,
-                                                                  Pageable pageable){
-        if(pageNumber != null && pageSize != null){
-            pageable = PageRequest.of(pageNumber, pageSize);
-        }
-
-        return loanTransactionLoggerRepository.findAllByCreditResult(creditResult, pageable);
     }
 }

@@ -3,7 +3,8 @@ package com.loanapplicationsystem.backend.controllers;
 import com.loanapplicationsystem.backend.dtos.CustomerDtoInput;
 import com.loanapplicationsystem.backend.dtos.CustomerDtoOutput;
 import com.loanapplicationsystem.backend.models.Customer;
-import com.loanapplicationsystem.backend.services.CustomerService;
+import com.loanapplicationsystem.backend.services.CustomerServiceImpl;
+import com.loanapplicationsystem.backend.services.abstractions.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,12 +19,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @CrossOrigin
 public class CustomerController {
-    private final CustomerService customService;
+    private final CustomerService customerService;
 
     @PostMapping
     public ResponseEntity<Customer> create(@Valid @RequestBody CustomerDtoInput request){
 
-        Optional<Customer> customerOptional = customService.create(request);
+        Optional<Customer> customerOptional = customerService.create(request);
 
         if(!customerOptional.isPresent()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -34,21 +35,21 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<CustomerDtoOutput>> getAll(){
-        final List<CustomerDtoOutput> customerDtoOutputList = customService.findAll();
+        final List<CustomerDtoOutput> customerDtoOutputList = customerService.findAll();
 
         return new ResponseEntity<>(customerDtoOutputList, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<CustomerDtoOutput> getById(@PathVariable long id){
-        final CustomerDtoOutput customerDtoOutput = customService.findById(id);
+        final CustomerDtoOutput customerDtoOutput = customerService.findById(id);
 
         return new ResponseEntity<>(customerDtoOutput, HttpStatus.OK);
     }
 
     @PutMapping
     public ResponseEntity<Customer> update(@Valid@RequestBody CustomerDtoInput request){
-        Optional<Customer> customerOptional = customService.update(request);
+        Optional<Customer> customerOptional = customerService.update(request);
 
         if(!customerOptional.isPresent()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -58,8 +59,8 @@ public class CustomerController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> delete(@PathVariable long id){
-        customService.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        customerService.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

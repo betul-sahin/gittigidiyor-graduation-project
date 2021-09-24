@@ -9,6 +9,7 @@ import com.loanapplicationsystem.backend.exceptions.PhoneNumberNotValidException
 import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
+import com.loanapplicationsystem.backend.services.abstractions.CustomerService;
 import com.loanapplicationsystem.backend.utils.ErrorMessages;
 import com.loanapplicationsystem.backend.utils.IdentificationNumberValidator;
 import com.loanapplicationsystem.backend.utils.PhoneNumberValidator;
@@ -25,13 +26,14 @@ import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_NOT
 
 @Service
 @RequiredArgsConstructor
-public class CustomerService {
+public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final IdentificationNumberValidator identificationNumberValidator;
     private final PhoneNumberValidator phoneNumberValidator;
 
     @Transactional
+    @Override
     public Optional<Customer> create(CustomerDtoInput request) {
 
         // Is the identification number valid ?
@@ -64,6 +66,7 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
+    @Override
     public List<CustomerDtoOutput> findAll() {
         return customerRepository.findAll()
                 .stream()
@@ -72,7 +75,8 @@ public class CustomerService {
     }
 
     @Transactional(readOnly = true)
-    public CustomerDtoOutput findById(long id) {
+    @Override
+    public CustomerDtoOutput findById(Long id) {
         Customer customer = customerRepository.findById(id).
                 orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
 
@@ -80,6 +84,7 @@ public class CustomerService {
     }
 
     @Transactional
+    @Override
     public Optional<Customer> update(CustomerDtoInput request) {
         Customer customer = customerRepository.save(
                 customerMapper.map(request));
@@ -88,7 +93,8 @@ public class CustomerService {
     }
 
     @Transactional
-    public void deleteById(long id) {
+    @Override
+    public void deleteById(Long id) {
         customerRepository.deleteById(id);
     }
 }

@@ -4,7 +4,8 @@ import com.loanapplicationsystem.backend.dtos.LoanDtoInput;
 import com.loanapplicationsystem.backend.dtos.LoanDtoOutput;
 import com.loanapplicationsystem.backend.models.Loan;
 import com.loanapplicationsystem.backend.models.LoanTransactionLogger;
-import com.loanapplicationsystem.backend.services.LoanService;
+import com.loanapplicationsystem.backend.services.abstractions.LoanService;
+import com.loanapplicationsystem.backend.services.abstractions.LoanTransactionLoggerService;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @CrossOrigin
 public class LoanController {
     private final LoanService loanService;
+    private final LoanTransactionLoggerService loanTransactionLoggerService;
 
     @PostMapping
     public ResponseEntity<Loan> create(@Valid @RequestBody LoanDtoInput request) {
@@ -32,6 +34,9 @@ public class LoanController {
         if (!loanOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        // save transactions of loan
+        loanTransactionLoggerService.saveLoanTransaction(loanOptional.get());
 
         return new ResponseEntity<>(
                 loanOptional.get(),
@@ -56,7 +61,7 @@ public class LoanController {
             @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
         return new ResponseEntity<>(
-                loanService.getAllTransactionsWithDate(transactionDate, pageNumber, pageSize, pageable),
+                loanTransactionLoggerService.getAllTransactionsWithDate(transactionDate, pageNumber, pageSize, pageable),
                 HttpStatus.OK);
     }
 
@@ -69,7 +74,7 @@ public class LoanController {
             @PageableDefault(page = 0, size = 10) Pageable pageable) {
 
         return new ResponseEntity<>(
-                loanService.getAllByCustomerId(customerId, pageNumber, pageSize, pageable),
+                loanTransactionLoggerService.getAllByCustomerId(customerId, pageNumber, pageSize, pageable),
                 HttpStatus.OK);
     }
 
@@ -82,7 +87,7 @@ public class LoanController {
             @PageableDefault(page = 0, size = 10) Pageable pageable){
 
         return new ResponseEntity<>(
-                loanService.getAllByCreditResult(creditResult, pageNumber, pageSize, pageable),
+                loanTransactionLoggerService.getAllByCreditResult(creditResult, pageNumber, pageSize, pageable),
                 HttpStatus.OK);
     }
 
@@ -109,7 +114,7 @@ public class LoanController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> delete(@PathVariable long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         loanService.deleteById(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
