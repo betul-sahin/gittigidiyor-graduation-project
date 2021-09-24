@@ -26,7 +26,6 @@ public class Loan extends AbstractBaseEntity {
 // TODO : builder pattern kullan
 // TODO : exceptino log
 // TODO : logback
-// TODO : sms gonderimi
 // servis testleri
 // controller testleri
 // repository testleri
