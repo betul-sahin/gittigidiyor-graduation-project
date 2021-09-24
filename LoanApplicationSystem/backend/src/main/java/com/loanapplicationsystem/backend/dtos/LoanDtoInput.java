@@ -1,30 +1,24 @@
 package com.loanapplicationsystem.backend.dtos;
 
-import com.loanapplicationsystem.backend.models.Customer;
-import com.loanapplicationsystem.backend.models.enums.CreditResult;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.NumberFormat;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class LoanDtoInput {
-    private long id;
+    private Long id;
 
-    @NotEmpty
-    @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    private double creditAmount;
-
+    @ApiModelProperty(example = "4")
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private int creditLimitMultiplier;
 
-    @NotEmpty
-    @NumberFormat(style = NumberFormat.Style.NUMBER)
-    private long customerId;
+    private Long customerId;
 }

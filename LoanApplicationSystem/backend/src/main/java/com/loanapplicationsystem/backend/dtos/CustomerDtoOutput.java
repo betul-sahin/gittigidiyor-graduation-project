@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDtoOutput {
-    private long id;
+    private Long id;
     private String identificationNumber;
     private String firstName;
     private String lastName;

@@ -62,8 +62,8 @@ public class LoanController {
 
     @GetMapping("/get-loan-transactions-by-customer-id")
     public ResponseEntity<Page<List<LoanTransactionLogger>>> getAllTransactionsWithCustomerId(
-            @ApiParam(value = "Transaction query for loan applications by customer id", example = "111L")
-            @RequestParam long customerId,
+            @ApiParam(value = "Transaction query for loan applications by customer id", example = "111")
+            @RequestParam Long customerId,
             @RequestParam(required = false) Integer pageNumber,
             @RequestParam(required = false) Integer pageSize,
             @PageableDefault(page = 0, size = 10) Pageable pageable) {
@@ -75,7 +75,7 @@ public class LoanController {
 
     @GetMapping("/get-loan-transactions-by-credit-result")
     public ResponseEntity<Page<List<LoanTransactionLogger>>> getAllTransactionsWithCreditResult(
-            @ApiParam(value = "Transaction query for loan applications by credit result", example = "111L")
+            @ApiParam(value = "Transaction query for loan applications by credit result", example = "APPROVAL")
             @RequestParam String creditResult,
             @RequestParam(required = false) Integer pageNumber,
             @RequestParam(required = false) Integer pageSize,

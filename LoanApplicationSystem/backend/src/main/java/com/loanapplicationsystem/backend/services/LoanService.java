@@ -42,31 +42,30 @@ public class LoanService {
     @Transactional
     public Optional<Loan> create(LoanDtoInput request) {
 
-        Customer customer = customerRepository.findById(request.getId()).
+        Customer customer = customerRepository.findById(request.getCustomerId()).
                 orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
-        int creditScore = 400;
+        int creditScore = 800;
 
         Loan loan = new Loan();
-
         if (creditScore < 500) {
             loan.setCreditResult(CreditResult.REJECTION);
-        } else if (creditScore >= 500 &&
-                creditScore < 1000 &&
-                customer.getMonthlyIncome() < 5000) {
+        }
+        else if (creditScore >= 500 && creditScore < 1000 && customer.getMonthlyIncome() < 5000) {
             loan.setCreditResult(CreditResult.APPROVAL);
             loan.setCreditAmount(10.000);
-        } else if (creditScore >= 500 &&
-                creditScore < 1000 &&
-                customer.getMonthlyIncome() >= 5000) {
+        }
+        else if (creditScore >= 500 && creditScore < 1000 && customer.getMonthlyIncome() >= 5000) {
             loan.setCreditResult(CreditResult.APPROVAL);
             loan.setCreditAmount(20.000);
-        } else if (creditScore >= 1000) {
+        }
+        else if (creditScore >= 1000) {
             loan.setCreditResult(CreditResult.APPROVAL);
             double credit = loan.getCreditLimitMultiplier() * customer.getMonthlyIncome();
             loan.setCreditAmount(credit);
         }
 
         // save loan object to db
+        loan.setCustomer(customer);
         Loan savedLoan = loanRepository.save(loan);
 
         // save transactions of loan

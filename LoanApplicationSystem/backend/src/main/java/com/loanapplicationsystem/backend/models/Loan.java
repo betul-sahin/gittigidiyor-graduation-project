@@ -1,5 +1,6 @@
 package com.loanapplicationsystem.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loanapplicationsystem.backend.models.abstractions.AbstractBaseEntity;
 import com.loanapplicationsystem.backend.models.enums.CreditResult;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Loan extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private CreditResult creditResult;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
 }
