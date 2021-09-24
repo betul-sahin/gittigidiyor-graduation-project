@@ -14,6 +14,8 @@ import com.loanapplicationsystem.backend.utils.ErrorMessages;
 import com.loanapplicationsystem.backend.utils.IdentificationNumberValidator;
 import com.loanapplicationsystem.backend.utils.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,8 @@ import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_NOT
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpl.class);
+
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
     private final IdentificationNumberValidator identificationNumberValidator;
@@ -44,6 +48,8 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IdentificationNumberNotValidException(ErrorMessages.IDENTIFICATION_NUMBER_NOT_VALID);
         }
 
+        LOGGER.info("Validate identification number {}", request.getIdentificationNumber());
+
         // Is the customer already registered ?
         Optional<Customer> customerOptional = customerRepository.
                 findByIdentificationNumber(request.getIdentificationNumber());
@@ -58,9 +64,13 @@ public class CustomerServiceImpl implements CustomerService {
             throw new PhoneNumberNotValidException(ErrorMessages.PHONE_NUMBER_NOT_VALID);
         }
 
+        LOGGER.info("Validate phone number {}", request.getPhoneNumber());
+
         Customer customer = customerMapper.map(request);
 
         Customer savedCustomer = customerRepository.save(customer);
+
+        LOGGER.info("Save customer {}", savedCustomer);
 
         return Optional.of(savedCustomer);
     }
@@ -86,15 +96,19 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public Optional<Customer> update(CustomerDtoInput request) {
-        Customer customer = customerRepository.save(
+        Customer updatedCustomer = customerRepository.save(
                 customerMapper.map(request));
 
-        return Optional.of(customer);
+        LOGGER.info("Update customer {}", updatedCustomer);
+
+        return Optional.of(updatedCustomer);
     }
 
     @Transactional
     @Override
     public void deleteById(Long id) {
         customerRepository.deleteById(id);
+
+        LOGGER.info("Delete this customer id {}", id);
     }
 }

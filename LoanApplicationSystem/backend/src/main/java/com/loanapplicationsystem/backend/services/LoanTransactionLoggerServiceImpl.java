@@ -1,6 +1,5 @@
 package com.loanapplicationsystem.backend.services;
 
-import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.models.Loan;
 import com.loanapplicationsystem.backend.models.LoanTransactionLogger;
 import com.loanapplicationsystem.backend.repositories.LoanTransactionLoggerRepository;
@@ -8,6 +7,8 @@ import com.loanapplicationsystem.backend.services.abstractions.LoanTransactionLo
 import com.loanapplicationsystem.backend.utils.ClientRequestInfo;
 import com.loanapplicationsystem.backend.utils.LoanValidator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +21,8 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class LoanTransactionLoggerServiceImpl implements LoanTransactionLoggerService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoanTransactionLoggerServiceImpl.class);
+
     private final ClientRequestInfo clientRequestInfo;
     private final LoanTransactionLoggerRepository loanTransactionLoggerRepository;
 
@@ -35,6 +38,8 @@ public class LoanTransactionLoggerServiceImpl implements LoanTransactionLoggerSe
         transactionLogger.setSessionActivityId(clientRequestInfo.getSessionActivityId());
 
         loanTransactionLoggerRepository.save(transactionLogger);
+
+        LOGGER.info("Save transactions for loan {}", transactionLogger);
     }
 
     @Override
@@ -46,7 +51,9 @@ public class LoanTransactionLoggerServiceImpl implements LoanTransactionLoggerSe
         LoanValidator.validateTransactionDate(transactionDate, formatter);
         LocalDate transactionDateResult = LocalDate.parse(transactionDate, formatter);
 
-        if(pageNumber != null && pageSize != null){
+        LOGGER.info("Validate transaction date {}", transactionDate);
+
+        if (pageNumber != null && pageSize != null) {
             pageable = PageRequest.of(pageNumber, pageSize);
         }
 
@@ -57,8 +64,8 @@ public class LoanTransactionLoggerServiceImpl implements LoanTransactionLoggerSe
     public Page<List<LoanTransactionLogger>> getAllByCustomerId(long customerId,
                                                                 Integer pageNumber,
                                                                 Integer pageSize,
-                                                                Pageable pageable){
-        if(pageNumber != null && pageSize != null){
+                                                                Pageable pageable) {
+        if (pageNumber != null && pageSize != null) {
             pageable = PageRequest.of(pageNumber, pageSize);
         }
 
@@ -69,8 +76,8 @@ public class LoanTransactionLoggerServiceImpl implements LoanTransactionLoggerSe
     public Page<List<LoanTransactionLogger>> getAllByCreditResult(String creditResult,
                                                                   Integer pageNumber,
                                                                   Integer pageSize,
-                                                                  Pageable pageable){
-        if(pageNumber != null && pageSize != null){
+                                                                  Pageable pageable) {
+        if (pageNumber != null && pageSize != null) {
             pageable = PageRequest.of(pageNumber, pageSize);
         }
 

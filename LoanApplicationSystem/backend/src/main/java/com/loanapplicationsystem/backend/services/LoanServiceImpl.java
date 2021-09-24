@@ -19,6 +19,8 @@ import com.loanapplicationsystem.backend.services.abstractions.SmsSender;
 import com.loanapplicationsystem.backend.utils.ClientRequestInfo;
 import com.loanapplicationsystem.backend.utils.LoanValidator;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +39,8 @@ import static com.loanapplicationsystem.backend.utils.ErrorMessages.LOAN_NOT_FOU
 @Service
 @RequiredArgsConstructor
 public class LoanServiceImpl implements LoanService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoanServiceImpl.class);
+
     private final LoanRepository loanRepository;
     private final CustomerRepository customerRepository;
     private final LoanMapper loanMapper;
@@ -71,10 +75,12 @@ public class LoanServiceImpl implements LoanService {
         // save loan object to db
         loan.setCustomer(customer);
         Loan savedLoan = loanRepository.save(loan);
+        LOGGER.info("Save loan object {}", savedLoan);
 
         // send credit informations via sms
-        SmsRequest smsRequest = new SmsRequest("+905304675933", "bu bir mesaj");
-        smsSender.sendSms(smsRequest);
+        SmsRequest smsRequest = new SmsRequest(customer.getPhoneNumber(), "bu bir mesaj");
+        //smsSender.sendSms(smsRequest);
+        LOGGER.info("Send sms {}", request);
 
         // endpointten onay durum bilgisi ve kredi bilgisi dön
 
@@ -104,6 +110,9 @@ public class LoanServiceImpl implements LoanService {
     @Transactional
     @Override
     public Optional<Loan> update(LoanDtoInput request) {
+
+        LOGGER.info("Update loan object {}", request);
+
         return Optional.of(new Loan());
     }
 
@@ -111,5 +120,7 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public void deleteById(Long id) {
         loanRepository.deleteById(id);
+
+        LOGGER.info("Delete this customer id {}", id);
     }
 }

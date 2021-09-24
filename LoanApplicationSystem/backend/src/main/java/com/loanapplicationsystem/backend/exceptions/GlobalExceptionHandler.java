@@ -1,8 +1,8 @@
 package com.loanapplicationsystem.backend.exceptions;
 
 import com.loanapplicationsystem.backend.dtos.AppErrorResponse;
-import com.loanapplicationsystem.backend.services.abstractions.ExceptionLogService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDate;
 
 @RestControllerAdvice
-@RequiredArgsConstructor
 public class GlobalExceptionHandler {
-    private final ExceptionLogService exceptionLogService;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({CustomerIsAlreadyExistException.class})
@@ -69,8 +67,6 @@ public class GlobalExceptionHandler {
         response.setStatus(badRequest.value());
         response.setMessage(exceptionMessage);
         response.setTimestamp(System.currentTimeMillis());
-
-        exceptionLogService.log(exceptionType, exceptionMessage, LocalDate.now());
 
         return response;
     }
