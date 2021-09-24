@@ -113,7 +113,7 @@ public class LoanController {
                 HttpStatus.BAD_REQUEST);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         loanService.deleteById(id);
 

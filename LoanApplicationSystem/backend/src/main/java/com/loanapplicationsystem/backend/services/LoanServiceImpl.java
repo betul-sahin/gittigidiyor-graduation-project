@@ -2,6 +2,7 @@ package com.loanapplicationsystem.backend.services;
 
 import com.loanapplicationsystem.backend.dtos.LoanDtoInput;
 import com.loanapplicationsystem.backend.dtos.LoanDtoOutput;
+import com.loanapplicationsystem.backend.dtos.SmsRequest;
 import com.loanapplicationsystem.backend.exceptions.CustomerNotFoundException;
 import com.loanapplicationsystem.backend.exceptions.LoanNotFoundException;
 import com.loanapplicationsystem.backend.mappers.LoanMapper;
@@ -14,6 +15,7 @@ import com.loanapplicationsystem.backend.repositories.LoanRepository;
 import com.loanapplicationsystem.backend.repositories.LoanTransactionLoggerRepository;
 import com.loanapplicationsystem.backend.services.abstractions.LoanService;
 import com.loanapplicationsystem.backend.services.abstractions.LoanTransactionLoggerService;
+import com.loanapplicationsystem.backend.services.abstractions.SmsSender;
 import com.loanapplicationsystem.backend.utils.ClientRequestInfo;
 import com.loanapplicationsystem.backend.utils.LoanValidator;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,7 @@ public class LoanServiceImpl implements LoanService {
     private final LoanRepository loanRepository;
     private final CustomerRepository customerRepository;
     private final LoanMapper loanMapper;
+    private final SmsSender smsSender;
 
     @Transactional
     @Override
@@ -69,7 +72,9 @@ public class LoanServiceImpl implements LoanService {
         loan.setCustomer(customer);
         Loan savedLoan = loanRepository.save(loan);
 
-        // bilgilendirme sms i gonder
+        // send credit informations via sms
+        SmsRequest smsRequest = new SmsRequest("+905304675933", "bu bir mesaj");
+        smsSender.sendSms(smsRequest);
 
         // endpointten onay durum bilgisi ve kredi bilgisi dön
 
