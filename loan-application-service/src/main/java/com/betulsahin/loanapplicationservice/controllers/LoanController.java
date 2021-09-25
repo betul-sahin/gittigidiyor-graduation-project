@@ -1,5 +1,9 @@
 package com.betulsahin.loanapplicationservice.controllers;
 
+import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
+import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
+import com.betulsahin.loanapplicationservice.models.Loan;
+import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
