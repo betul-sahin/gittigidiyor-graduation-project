@@ -2,6 +2,7 @@ package com.betulsahin.loanapplicationservice.services;
 
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
+import com.betulsahin.loanapplicationservice.dtos.SmsRequest;
 import com.betulsahin.loanapplicationservice.exceptions.CustomerNotFoundException;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.mappers.LoanMapper;
@@ -11,6 +12,7 @@ import com.betulsahin.loanapplicationservice.models.enums.CreditResult;
 import com.betulsahin.loanapplicationservice.repositories.CustomerRepository;
 import com.betulsahin.loanapplicationservice.repositories.LoanRepository;
 import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;
+import com.betulsahin.loanapplicationservice.services.abstractions.SmsSender;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
