@@ -17,9 +17,9 @@ public class CreditScoreController {
     private final CreditScoreService creditScoreService;
 
     @GetMapping("/{identificationNumber}")
-    public ResponseEntity<CreditScoreResponse> getByIdentificationNumber(@PathVariable String identificationNumber){
-        final CreditScoreResponse response = creditScoreService.getByIdentificationNumber(identificationNumber);
+    public int getCreditScoreByIdentificationNumber(@PathVariable String identificationNumber){
+        int score = creditScoreService.getCreditScoreByIdentificationNumber(identificationNumber);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return score;
     }
 }

@@ -9,6 +9,7 @@ import com.betulsahin.creditscoreservice.utils.AppErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class CreditScoreService {
     private final IdentificationNumberValidator identificationNumberValidator;
 
     @Transactional(readOnly = true)
-    public CreditScoreResponse getByIdentificationNumber(String identificationNumber) {
+    public int getCreditScoreByIdentificationNumber(String identificationNumber) {
 
         // Is the identification number valid ?
         boolean isValidIdentificationNumber = identificationNumberValidator.test(identificationNumber);
@@ -36,12 +37,18 @@ public class CreditScoreService {
             throw new CreditScoreNotFoundException(AppErrorMessages.CREDIT_SCORE_NOT_FOUND);
         }
 
-        CreditScoreResponse response = this.generateCreditScore(creditScoreOptional.get(), lastDigitOfIdentificationNumber);
+        int score = this.generateCreditScore(creditScoreOptional.get(), lastDigitOfIdentificationNumber);
 
-        return response;
+        return score;
     }
 
-    private CreditScoreResponse generateCreditScore(CreditScore creditScore, int lastDigitOfIdentificationNumber){
+    private int generateCreditScore(CreditScore creditScore, int lastDigitOfIdentificationNumber){
+        int score = 0;
+        if(creditScore.getLastDigit().equals(lastDigitOfIdentificationNumber)){
+            score = creditScore.getScore();
+        }
+
+        /*
         CreditScoreResponse response = new CreditScoreResponse();
         if(creditScore.getLastDigit().equals(lastDigitOfIdentificationNumber)){
             response.setSuccess(true);
@@ -50,7 +57,8 @@ public class CreditScoreService {
             response.setSuccess(false);
             response.setScore(0);
         }
+        */
 
-        return response;
+        return score;
     }
 }
