@@ -1,6 +1,7 @@
 package com.betulsahin.loanapplicationservice.models;
 
 import com.betulsahin.loanapplicationservice.models.abstractions.AbstractBaseEntity;
+import com.betulsahin.loanapplicationservice.models.enums.CreditResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;

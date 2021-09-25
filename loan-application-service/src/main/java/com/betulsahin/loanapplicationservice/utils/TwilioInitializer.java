@@ -1,6 +1,7 @@
 package com.betulsahin.loanapplicationservice.utils;
 
 import com.betulsahin.loanapplicationservice.configurations.TwilioConfiguration;
+import com.twilio.Twilio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
