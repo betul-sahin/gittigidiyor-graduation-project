@@ -1,5 +1,7 @@
 package com.betulsahin.loanapplicationservice.mappers;
 
+import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
+import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
 import com.betulsahin.loanapplicationservice.models.Loan;
 import com.betulsahin.loanapplicationservice.repositories.CustomerRepository;
 import org.mapstruct.Mapper;
