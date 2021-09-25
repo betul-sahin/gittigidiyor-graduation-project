@@ -13,7 +13,7 @@ public abstract class LoanMapper {
     @Autowired
     protected CustomerRepository customerRepository;
 
-    @Mapping(target = "customer", expression = "java(customerRepository.findById(request.getCustomerId()).get())")
+    @Mapping(target = "customer", expression = "java(customerRepository.findByIdentificationNumber(request.getIdentificationNumber()).get())")
     public abstract Loan map(LoanDtoInput request);
 
     @Mapping(target="customerId", source="customer.id")

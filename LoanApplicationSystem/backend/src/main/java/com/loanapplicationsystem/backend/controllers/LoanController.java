@@ -1,5 +1,6 @@
 package com.loanapplicationsystem.backend.controllers;
 
+import com.loanapplicationsystem.backend.client.CreditScoreService;
 import com.loanapplicationsystem.backend.dtos.LoanDtoInput;
 import com.loanapplicationsystem.backend.dtos.LoanDtoOutput;
 import com.loanapplicationsystem.backend.models.Loan;
@@ -25,11 +26,15 @@ import java.util.Optional;
 @CrossOrigin
 public class LoanController {
     private final LoanService loanService;
+    private final CreditScoreService creditScoreService;
     private final LoanTransactionLoggerService loanTransactionLoggerService;
 
     @PostMapping
     public ResponseEntity<Loan> create(@Valid @RequestBody LoanDtoInput request) {
-        Optional<Loan> loanOptional = loanService.create(request);
+
+        int score = creditScoreService.getCreditScoreByIdentificationNumber(request.getIdentificationNumber());
+
+        Optional<Loan> loanOptional = loanService.create(request, score);
 
         if (!loanOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

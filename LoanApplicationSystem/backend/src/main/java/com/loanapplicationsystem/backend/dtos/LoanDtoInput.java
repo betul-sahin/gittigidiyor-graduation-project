@@ -20,5 +20,5 @@ public class LoanDtoInput {
     @NumberFormat(style = NumberFormat.Style.NUMBER)
     private int creditLimitMultiplier;
 
-    private Long customerId;
+    private String identificationNumber;
 }

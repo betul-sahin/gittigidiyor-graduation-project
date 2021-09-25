@@ -38,11 +38,11 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional
     @Override
-    public Optional<Loan> create(LoanDtoInput request) {
+    public Optional<Loan> create(LoanDtoInput request, int score) {
 
-        Customer customer = customerRepository.findById(request.getCustomerId()).
+        Customer customer = customerRepository.findByIdentificationNumber(request.getIdentificationNumber()).
                 orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
-        int creditScore = 800;
+        int creditScore = score;
 
         Loan loan = new Loan();
         if (creditScore < 500) {
