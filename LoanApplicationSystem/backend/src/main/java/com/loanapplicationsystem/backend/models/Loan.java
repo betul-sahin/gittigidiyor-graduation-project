@@ -23,8 +23,6 @@ public class Loan extends AbstractBaseEntity {
     private Customer customer;
 }
 
-// TODO : builder pattern kullan
-// TODO : logback
-// servis testleri
-// controller testleri
-// repository testleri
+// TODO servis testleri
+// TODO controller testleri
+// TODO repository testleri

@@ -8,33 +8,23 @@ import com.loanapplicationsystem.backend.exceptions.LoanNotFoundException;
 import com.loanapplicationsystem.backend.mappers.LoanMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.models.Loan;
-import com.loanapplicationsystem.backend.models.LoanTransactionLogger;
 import com.loanapplicationsystem.backend.models.enums.CreditResult;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
 import com.loanapplicationsystem.backend.repositories.LoanRepository;
-import com.loanapplicationsystem.backend.repositories.LoanTransactionLoggerRepository;
 import com.loanapplicationsystem.backend.services.abstractions.LoanService;
-import com.loanapplicationsystem.backend.services.abstractions.LoanTransactionLoggerService;
 import com.loanapplicationsystem.backend.services.abstractions.SmsSender;
-import com.loanapplicationsystem.backend.utils.ClientRequestInfo;
-import com.loanapplicationsystem.backend.utils.LoanValidator;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_NOT_FOUND;
-import static com.loanapplicationsystem.backend.utils.ErrorMessages.LOAN_NOT_FOUND;
+import static com.loanapplicationsystem.backend.utils.AppErrorMessages.CUSTOMER_NOT_FOUND;
+import static com.loanapplicationsystem.backend.utils.AppErrorMessages.LOAN_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor

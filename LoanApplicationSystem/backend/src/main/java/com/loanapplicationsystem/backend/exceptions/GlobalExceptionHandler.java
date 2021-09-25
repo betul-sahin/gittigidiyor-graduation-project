@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({CustomerIsAlreadyExistException.class})
     @ResponseBody
     public AppErrorResponse handleException(CustomerIsAlreadyExistException ex){
-        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), ex.getClass().getSimpleName());
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return response;
     }
 
@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({LoanTransactionLoggerDateTimeParseException.class})
     @ResponseBody
     public AppErrorResponse handleException(LoanTransactionLoggerDateTimeParseException ex){
-        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), ex.getClass().getSimpleName());
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return response;
     }
 
@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({IdentificationNumberNotValidException.class})
     @ResponseBody
     public AppErrorResponse handleException(IdentificationNumberNotValidException ex){
-        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), ex.getClass().getSimpleName());
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return response;
     }
 
@@ -42,7 +42,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({PhoneNumberNotValidException.class})
     @ResponseBody
     public AppErrorResponse handleException(PhoneNumberNotValidException ex){
-        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), ex.getClass().getSimpleName());
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
         return response;
     }
 
@@ -50,7 +50,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({CustomerNotFoundException.class})
     @ResponseBody
     public AppErrorResponse handleException(CustomerNotFoundException ex){
-        AppErrorResponse response = prepareErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), ex.getClass().getSimpleName());
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
         return response;
     }
 
@@ -58,11 +58,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({LoanNotFoundException.class})
     @ResponseBody
     public AppErrorResponse handleException(LoanNotFoundException ex){
-        AppErrorResponse response = prepareErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), ex.getClass().getSimpleName());
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
         return response;
     }
 
-    private AppErrorResponse prepareErrorResponse(HttpStatus badRequest, String exceptionMessage, String exceptionType) {
+    private AppErrorResponse prepareErrorResponse(HttpStatus badRequest, String exceptionMessage) {
         AppErrorResponse response = new AppErrorResponse();
         response.setStatus(badRequest.value());
         response.setMessage(exceptionMessage);

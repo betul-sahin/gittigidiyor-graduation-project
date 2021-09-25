@@ -1,12 +1,11 @@
-package com.loanapplicationsystem.backend.utils;
+package com.loanapplicationsystem.backend.services.validators;
 
 import com.loanapplicationsystem.backend.exceptions.LoanTransactionLoggerDateTimeParseException;
+import com.loanapplicationsystem.backend.utils.AppErrorMessages;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class LoanValidator {
     public static void validateTransactionDate(String transactionDate,
@@ -14,7 +13,7 @@ public class LoanValidator {
         try{
             LocalDate.parse(transactionDate, formatter);
         }catch (DateTimeParseException e){
-            throw new LoanTransactionLoggerDateTimeParseException(ErrorMessages.DATE_FORMAT_WRONG);
+            throw new LoanTransactionLoggerDateTimeParseException(AppErrorMessages.DATE_FORMAT_WRONG);
         }
     }
 }

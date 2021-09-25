@@ -1,4 +1,4 @@
-package com.loanapplicationsystem.backend.utils;
+package com.loanapplicationsystem.backend.services.validators;
 
 import org.springframework.stereotype.Service;
 

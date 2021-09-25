@@ -3,7 +3,7 @@ package com.loanapplicationsystem.backend.services;
 import com.loanapplicationsystem.backend.config.TwilioConfiguration;
 import com.loanapplicationsystem.backend.dtos.SmsRequest;
 import com.loanapplicationsystem.backend.services.abstractions.SmsSender;
-import com.loanapplicationsystem.backend.utils.PhoneNumberValidator;
+import com.loanapplicationsystem.backend.services.validators.PhoneNumberValidator;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.rest.api.v2010.account.MessageCreator;
 import com.twilio.type.PhoneNumber;

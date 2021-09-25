@@ -10,9 +10,9 @@ import com.loanapplicationsystem.backend.mappers.CustomerMapper;
 import com.loanapplicationsystem.backend.models.Customer;
 import com.loanapplicationsystem.backend.repositories.CustomerRepository;
 import com.loanapplicationsystem.backend.services.abstractions.CustomerService;
-import com.loanapplicationsystem.backend.utils.ErrorMessages;
-import com.loanapplicationsystem.backend.utils.IdentificationNumberValidator;
-import com.loanapplicationsystem.backend.utils.PhoneNumberValidator;
+import com.loanapplicationsystem.backend.services.validators.IdentificationNumberValidator;
+import com.loanapplicationsystem.backend.services.validators.PhoneNumberValidator;
+import com.loanapplicationsystem.backend.utils.AppErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_FOUND;
-import static com.loanapplicationsystem.backend.utils.ErrorMessages.CUSTOMER_NOT_FOUND;
+import static com.loanapplicationsystem.backend.utils.AppErrorMessages.CUSTOMER_FOUND;
+import static com.loanapplicationsystem.backend.utils.AppErrorMessages.CUSTOMER_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
                 test(request.getIdentificationNumber());
 
         if (!isValidIdentificationNumber) {
-            throw new IdentificationNumberNotValidException(ErrorMessages.IDENTIFICATION_NUMBER_NOT_VALID);
+            throw new IdentificationNumberNotValidException(AppErrorMessages.IDENTIFICATION_NUMBER_NOT_VALID);
         }
 
         LOGGER.info("Validate identification number {}", request.getIdentificationNumber());
@@ -61,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
         // Is the phone number valid ?
         boolean isValidPhoneNumber = phoneNumberValidator.test(request.getPhoneNumber());
         if(!isValidPhoneNumber){
-            throw new PhoneNumberNotValidException(ErrorMessages.PHONE_NUMBER_NOT_VALID);
+            throw new PhoneNumberNotValidException(AppErrorMessages.PHONE_NUMBER_NOT_VALID);
         }
 
         LOGGER.info("Validate phone number {}", request.getPhoneNumber());

@@ -1,6 +1,6 @@
 package com.loanapplicationsystem.backend.utils;
 
-public class ErrorMessages {
+public class AppErrorMessages {
     public static final String CUSTOMER_FOUND = "The customer is already exist with this identification number.";
     public static final String CUSTOMER_NOT_FOUND = "The customer not found with this id.";
     public static final String LOAN_NOT_FOUND = "The loan application not found with this id.";
