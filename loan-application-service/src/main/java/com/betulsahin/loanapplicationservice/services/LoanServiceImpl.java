@@ -4,6 +4,7 @@ import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
 import com.betulsahin.loanapplicationservice.dtos.SmsRequest;
 import com.betulsahin.loanapplicationservice.exceptions.CustomerNotFoundException;
+import com.betulsahin.loanapplicationservice.exceptions.IdentificationNumberNotValidException;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.mappers.LoanMapper;
 import com.betulsahin.loanapplicationservice.models.Customer;
@@ -13,6 +14,8 @@ import com.betulsahin.loanapplicationservice.repositories.CustomerRepository;
 import com.betulsahin.loanapplicationservice.repositories.LoanRepository;
 import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;
 import com.betulsahin.loanapplicationservice.services.abstractions.SmsSender;
+import com.betulsahin.loanapplicationservice.services.validators.IdentificationNumberValidator;
+import com.betulsahin.loanapplicationservice.utils.AppErrorMessages;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +36,7 @@ public class LoanServiceImpl implements LoanService {
 
     private final LoanRepository loanRepository;
     private final CustomerRepository customerRepository;
+    private final IdentificationNumberValidator identificationNumberValidator;
     private final LoanMapper loanMapper;
     private final SmsSender smsSender;
 
@@ -40,9 +44,40 @@ public class LoanServiceImpl implements LoanService {
     @Override
     public Optional<Loan> create(LoanDtoInput request, int score) {
 
+        // Is the identification number valid ?
+        boolean isValidIdentificationNumber = identificationNumberValidator.
+                test(request.getIdentificationNumber());
+
+        if (!isValidIdentificationNumber) {
+            throw new IdentificationNumberNotValidException(AppErrorMessages.IDENTIFICATION_NUMBER_NOT_VALID);
+        }
+
+        LOGGER.info("Validate identification number {}", request.getIdentificationNumber());
+
+        // If he/she is current customer
         Customer customer = customerRepository.findByIdentificationNumber(request.getIdentificationNumber()).
                 orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
-        int creditScore = score;
+
+        Loan loan = this.calculateCreditAmountAndCreditResult(customer, score);
+
+        // save loan object to db
+        loan.setCustomer(customer);
+        Loan savedLoan = loanRepository.save(loan);
+        LOGGER.info("Save loan object {}", savedLoan);
+
+        // send credit informations via sms
+        SmsRequest smsRequest = new SmsRequest(customer.getPhoneNumber(), "bu bir mesaj");
+        //smsSender.sendSms(smsRequest);
+        LOGGER.info("Send sms {}", request);
+
+        // endpointten onay durum bilgisi ve kredi bilgisi dön
+
+        // return new CreditResultResponse();
+
+        return Optional.of(savedLoan);
+    }
+
+    private Loan calculateCreditAmountAndCreditResult(Customer customer, int creditScore){
 
         Loan loan = new Loan();
         if (creditScore < 500) {
@@ -62,21 +97,7 @@ public class LoanServiceImpl implements LoanService {
             loan.setCreditAmount(credit);
         }
 
-        // save loan object to db
-        loan.setCustomer(customer);
-        Loan savedLoan = loanRepository.save(loan);
-        LOGGER.info("Save loan object {}", savedLoan);
-
-        // send credit informations via sms
-        SmsRequest smsRequest = new SmsRequest(customer.getPhoneNumber(), "bu bir mesaj");
-        //smsSender.sendSms(smsRequest);
-        LOGGER.info("Send sms {}", request);
-
-        // endpointten onay durum bilgisi ve kredi bilgisi dön
-
-        // return new CreditResultResponse();
-
-        return Optional.of(savedLoan);
+        return loan;
     }
 
     @Transactional(readOnly = true)
@@ -95,15 +116,6 @@ public class LoanServiceImpl implements LoanService {
                 .orElseThrow(() -> new LoanNotFoundException(LOAN_NOT_FOUND));
 
         return loanMapper.mapToDto(loan);
-    }
-
-    @Transactional
-    @Override
-    public Optional<Loan> update(LoanDtoInput request) {
-
-        LOGGER.info("Update loan object {}", request);
-
-        return Optional.of(new Loan());
     }
 
     @Transactional

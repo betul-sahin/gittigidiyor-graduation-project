@@ -105,19 +105,6 @@ public class LoanController {
                 HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<Loan> update(@Valid @RequestBody LoanDtoInput request) {
-        Optional<Loan> loanOptional = loanService.update(request);
-
-        if (!loanOptional.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(
-                loanOptional.get(),
-                HttpStatus.BAD_REQUEST);
-    }
-
     @DeleteMapping("{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         loanService.deleteById(id);
