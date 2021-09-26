@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDtoInput {
-    private Long id;
 
     @NotEmpty
     private String identificationNumber;

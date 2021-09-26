@@ -23,8 +23,12 @@ public class Loan extends AbstractBaseEntity {
 }
 
 // TODO score-service in pushlanmasi
-// TODO loan-service tamamen çalışsın
 // TODO frontend
+// TODO +90.. regex
+// TODO LoanValidator fix
+// TODO update method of loan
+// TODO update method of customer
+// TODO swagger test -> hersey duzgun calisiyor mu
 // TODO servis testleri
 // TODO controller testleri
 // TODO repository testleri

@@ -10,7 +10,6 @@ import org.springframework.format.annotation.NumberFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoanDtoInput {
-    private Long id;
 
     @ApiModelProperty(example = "4")
     @NumberFormat(style = NumberFormat.Style.NUMBER)

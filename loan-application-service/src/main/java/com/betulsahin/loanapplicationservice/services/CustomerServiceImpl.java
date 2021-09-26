@@ -95,8 +95,37 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public Optional<Customer> update(CustomerDtoInput request) {
-        Customer updatedCustomer = customerRepository.save(
-                customerMapper.map(request));
+
+        // Is the identification number valid ?
+        boolean isValidIdentificationNumber = identificationNumberValidator.
+                test(request.getIdentificationNumber());
+
+        if (!isValidIdentificationNumber) {
+            throw new IdentificationNumberNotValidException(AppErrorMessages.IDENTIFICATION_NUMBER_NOT_VALID);
+        }
+
+        LOGGER.info("Validate identification number {}", request.getIdentificationNumber());
+
+        // Is the customer found ?
+        Optional<Customer> customerOptional = customerRepository.
+                findByIdentificationNumber(request.getIdentificationNumber());
+
+        if (!customerOptional.isPresent()) {
+            throw new CustomerIsAlreadyExistException(CUSTOMER_NOT_FOUND);
+        }
+
+        // Is the phone number valid ?
+        boolean isValidPhoneNumber = phoneNumberValidator.test(request.getPhoneNumber());
+        if(!isValidPhoneNumber){
+            throw new PhoneNumberNotValidException(PHONE_NUMBER_NOT_VALID);
+        }
+
+        LOGGER.info("Validate phone number {}", request.getPhoneNumber());
+
+        Customer selectedCustomer = customerMapper.map(request);
+        selectedCustomer.setId(customerOptional.get().getId());
+
+        Customer updatedCustomer = customerRepository.save(selectedCustomer);
 
         LOGGER.info("Update customer {}", updatedCustomer);
 
