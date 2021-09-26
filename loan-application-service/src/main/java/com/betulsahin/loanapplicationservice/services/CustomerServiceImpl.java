@@ -76,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<CustomerDtoOutput> findAll() {
+    public List<CustomerDtoOutput> getAll() {
         return customerRepository.findAll()
                 .stream()
                 .map(customerMapper::mapToDto)
@@ -85,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional(readOnly = true)
     @Override
-    public CustomerDtoOutput findById(Long id) {
+    public CustomerDtoOutput getById(Long id) {
         Customer customer = customerRepository.findById(id).
                 orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
 

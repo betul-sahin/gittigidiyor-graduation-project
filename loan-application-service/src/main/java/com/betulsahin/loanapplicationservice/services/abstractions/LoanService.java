@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface LoanService {
     Optional<Loan> create(LoanDtoInput request, int score);
-    List<LoanDtoOutput> findAll();
-    LoanDtoOutput findById(Long id);
+    List<LoanDtoOutput> getAll();
+    LoanDtoOutput getById(Long id);
     Optional<Loan> update(LoanDtoInput request);
     void deleteById(Long id);
 }

@@ -81,7 +81,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<LoanDtoOutput> findAll() {
+    public List<LoanDtoOutput> getAll() {
         return loanRepository.findAll()
                 .stream()
                 .map(loanMapper::mapToDto)
@@ -90,7 +90,7 @@ public class LoanServiceImpl implements LoanService {
 
     @Transactional(readOnly = true)
     @Override
-    public LoanDtoOutput findById(Long id) {
+    public LoanDtoOutput getById(Long id) {
         Loan loan = loanRepository.findById(id)
                 .orElseThrow(() -> new LoanNotFoundException(LOAN_NOT_FOUND));
 

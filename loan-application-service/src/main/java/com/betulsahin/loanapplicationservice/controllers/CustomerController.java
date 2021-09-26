@@ -34,14 +34,14 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<CustomerDtoOutput>> getAll(){
-        final List<CustomerDtoOutput> customerDtoOutputList = customerService.findAll();
+        final List<CustomerDtoOutput> customerDtoOutputList = customerService.getAll();
 
         return new ResponseEntity<>(customerDtoOutputList, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<CustomerDtoOutput> getById(@PathVariable long id){
-        final CustomerDtoOutput customerDtoOutput = customerService.findById(id);
+        final CustomerDtoOutput customerDtoOutput = customerService.getById(id);
 
         return new ResponseEntity<>(customerDtoOutput, HttpStatus.OK);
     }

@@ -1,5 +1,23 @@
 package com.betulsahin.loanapplicationservice.services;
 
+import com.betulsahin.loanapplicationservice.models.Loan;
+import com.betulsahin.loanapplicationservice.models.LoanTransactionLogger;
+import com.betulsahin.loanapplicationservice.repositories.LoanTransactionLoggerRepository;
+import com.betulsahin.loanapplicationservice.services.abstractions.LoanTransactionLoggerService;
+import com.betulsahin.loanapplicationservice.services.validators.LoanValidator;
+import com.betulsahin.loanapplicationservice.utils.ClientRequestInfo;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LoanTransactionLoggerServiceImpl implements LoanTransactionLoggerService {

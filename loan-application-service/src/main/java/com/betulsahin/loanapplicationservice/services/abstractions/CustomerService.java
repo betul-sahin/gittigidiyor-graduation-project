@@ -9,8 +9,8 @@ import java.util.Optional;
 
 public interface CustomerService {
     Optional<Customer> create(CustomerDtoInput request);
-    List<CustomerDtoOutput> findAll();
-    CustomerDtoOutput findById(Long id);
+    List<CustomerDtoOutput> getAll();
+    CustomerDtoOutput getById(Long id);
     Optional<Customer> update(CustomerDtoInput request);
     void deleteById(Long id);
 }

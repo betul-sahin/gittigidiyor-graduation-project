@@ -22,6 +22,9 @@ public class Loan extends AbstractBaseEntity {
     private Customer customer;
 }
 
+// TODO score-service in pushlanmasi
+// TODO loan-service tamamen çalışsın
+// TODO frontend
 // TODO servis testleri
 // TODO controller testleri
 // TODO repository testleri

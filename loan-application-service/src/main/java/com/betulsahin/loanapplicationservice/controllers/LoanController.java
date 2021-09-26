@@ -3,7 +3,10 @@ package com.betulsahin.loanapplicationservice.controllers;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
 import com.betulsahin.loanapplicationservice.models.Loan;
+import com.betulsahin.loanapplicationservice.models.LoanTransactionLogger;
 import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;
+import com.betulsahin.loanapplicationservice.client.CreditScoreService;
+import com.betulsahin.loanapplicationservice.services.abstractions.LoanTransactionLoggerService;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,7 +50,7 @@ public class LoanController {
 
     @GetMapping
     public ResponseEntity<List<LoanDtoOutput>> getAll() {
-        final List<LoanDtoOutput> loanDtoOutputList = loanService.findAll();
+        final List<LoanDtoOutput> loanDtoOutputList = loanService.getAll();
 
         return new ResponseEntity<>(
                 loanDtoOutputList,
@@ -95,7 +98,7 @@ public class LoanController {
 
     @GetMapping("{id}")
     public ResponseEntity<LoanDtoOutput> getById(@PathVariable long id) {
-        final LoanDtoOutput loanDtoOutput = loanService.findById(id);
+        final LoanDtoOutput loanDtoOutput = loanService.getById(id);
 
         return new ResponseEntity<>(
                 loanDtoOutput,
