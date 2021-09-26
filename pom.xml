@@ -15,7 +15,6 @@
     </properties>
 
     <modules>
-        <module>LoanApplicationSystem/backend</module>
         <module>credit-score-service</module>
         <module>discovery-service</module>
         <module>loan-application-service</module>
