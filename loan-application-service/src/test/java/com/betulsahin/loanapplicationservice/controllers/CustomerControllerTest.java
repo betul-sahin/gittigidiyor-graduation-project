@@ -34,7 +34,7 @@ class CustomerControllerTest {
     CustomerController underTest;
 
     @Test
-    void itShouldCreateSuccessfully(){
+    void create_itShouldCreateSuccessfully(){
         // given
         Customer customer = new Customer();
         customer.setIdentificationNumber("12345678900");
@@ -57,7 +57,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void itShouldReturnStatusBadRequest_whenCustomerIsNotCreated(){
+    void create_itShouldReturnStatusBadRequest(){
         // given
         when(mockCustomerService.create(any())).thenReturn(Optional.empty());
 
@@ -70,7 +70,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void itShouldReturnCustomerDtoList(){
+    void getAll_itShouldReturnCustomerDtoList(){
         // given
         CustomerDtoOutput customerDtoOutput = new CustomerDtoOutput();
         List<CustomerDtoOutput> expected = Arrays.asList(customerDtoOutput);
@@ -90,7 +90,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void itShouldReturnCustomerDto_whenCustomerIdExist(){
+    void getById_itShouldReturnCustomerDto(){
         // given
         CustomerDtoOutput expected = new CustomerDtoOutput();
         expected.setId(1L);
@@ -110,7 +110,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void testGetById_itShouldReturnStatusNotFound_whenCustomerIdNotExist(){
+    void getById_itShouldReturnStatusNotFound_whenCustomerIdNotExist(){
         // given
         when(mockCustomerService.getById(anyLong())).thenReturn(null);
 
@@ -124,7 +124,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void itShouldUpdateSuccessfully(){
+    void update_itShouldUpdateSuccessfully(){
         // given
         Customer customer = new Customer();
         customer.setIdentificationNumber("12345678900");
@@ -150,7 +150,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void itShouldReturnStatusBadRequest_whenCustomerIsNotUpdated(){
+    void update_itShouldReturnStatusBadRequest(){
         // given
         when(mockCustomerService.update(any())).thenReturn(Optional.empty());
 
@@ -165,7 +165,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void itShouldDeleteSuccesfully(){
+    void deleteById_itShouldDeleteSuccesfully(){
         // given
         // when
         ResponseEntity<Void> response = underTest.deleteById(1L);
@@ -175,7 +175,7 @@ class CustomerControllerTest {
     }
 
     @Test
-    void testDeleteById_itShouldReturnStatusNotFound_whenCustomerIdNotExist(){
+    void deleteById_itShouldReturnStatusNotFound_whenCustomerIdNotExist(){
         // given
         Mockito.doThrow(CustomerIsAlreadyExistException.class).
                 when(mockCustomerService).deleteById(anyLong());

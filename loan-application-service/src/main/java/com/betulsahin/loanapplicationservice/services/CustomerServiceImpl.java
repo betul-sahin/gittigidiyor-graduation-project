@@ -111,7 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
                 findByIdentificationNumber(request.getIdentificationNumber());
 
         if (!customerOptional.isPresent()) {
-            throw new CustomerIsAlreadyExistException(CUSTOMER_NOT_FOUND);
+            throw new CustomerNotFoundException(CUSTOMER_NOT_FOUND);
         }
 
         // Is the phone number valid ?
@@ -139,7 +139,7 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customerOptional = customerRepository.findById(id);
 
         if (!customerOptional.isPresent()) {
-            throw new CustomerIsAlreadyExistException(CUSTOMER_NOT_FOUND);
+            throw new CustomerNotFoundException(CUSTOMER_NOT_FOUND);
         }
 
         customerRepository.delete(customerOptional.get());
