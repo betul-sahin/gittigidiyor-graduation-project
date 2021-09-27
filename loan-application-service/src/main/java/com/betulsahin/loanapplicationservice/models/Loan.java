@@ -3,7 +3,9 @@ package com.betulsahin.loanapplicationservice.models;
 import com.betulsahin.loanapplicationservice.models.abstractions.AbstractBaseEntity;
 import com.betulsahin.loanapplicationservice.models.enums.CreditResult;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -18,7 +20,7 @@ public class Loan extends AbstractBaseEntity {
     private CreditResult creditResult;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //cascade = { CascadeType.MERGE, CascadeType.REMOVE}
     private Customer customer;
 }
 
@@ -30,3 +32,7 @@ public class Loan extends AbstractBaseEntity {
 // TODO servis testleri
 // TODO controller testleri
 // TODO repository testleri
+// TODO : immutable ve valueobject islemleri
+// TODO : plugin + jib
+// TODO : aws
+// TODO mikroservice

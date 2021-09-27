@@ -135,7 +135,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public void deleteById(Long id) {
-        customerRepository.deleteById(id);
+        // Is the customer found ?
+        Optional<Customer> customerOptional = customerRepository.findById(id);
+
+        if (!customerOptional.isPresent()) {
+            throw new CustomerIsAlreadyExistException(CUSTOMER_NOT_FOUND);
+        }
+
+        customerRepository.delete(customerOptional.get());
 
         LOGGER.info("Delete this customer id {}", id);
     }

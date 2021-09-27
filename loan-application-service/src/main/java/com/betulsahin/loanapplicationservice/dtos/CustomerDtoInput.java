@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class CustomerDtoInput {
 
+    @ApiModelProperty(example = "12345678900")
     @NotEmpty
     private String identificationNumber;
 
@@ -30,7 +31,7 @@ public class CustomerDtoInput {
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private double monthlyIncome;
 
-    @ApiModelProperty(example = "05231231212")
+    @ApiModelProperty(example = "5231231212")
     @NotEmpty
     private String phoneNumber;
 }
