@@ -43,6 +43,10 @@ public class CustomerController {
     public ResponseEntity<CustomerDtoOutput> getById(@PathVariable long id){
         final CustomerDtoOutput customerDtoOutput = customerService.getById(id);
 
+        if(customerDtoOutput == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
         return new ResponseEntity<>(customerDtoOutput, HttpStatus.OK);
     }
 
@@ -58,9 +62,12 @@ public class CustomerController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
-        customerService.deleteById(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        try{
+            customerService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
