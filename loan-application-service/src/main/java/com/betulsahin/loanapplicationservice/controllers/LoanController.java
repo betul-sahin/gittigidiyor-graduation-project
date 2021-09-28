@@ -2,6 +2,7 @@ package com.betulsahin.loanapplicationservice.controllers;
 
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
+import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Loan;
 import com.betulsahin.loanapplicationservice.models.LoanTransactionLogger;
 import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;
@@ -26,13 +27,13 @@ import java.util.Optional;
 @CrossOrigin
 public class LoanController {
     private final LoanService loanService;
-    ///private final CreditScoreService creditScoreService;
+    private final CreditScoreService creditScoreService;
     private final LoanTransactionLoggerService loanTransactionLoggerService;
 
     @PostMapping
     public ResponseEntity<Loan> create(@Valid @RequestBody LoanDtoInput request) {
 
-        int score = 700; //creditScoreService.getCreditScoreByIdentificationNumber(request.getIdentificationNumber());
+        int score = creditScoreService.getCreditScoreByIdentificationNumber(request.getIdentificationNumber());
 
         Optional<Loan> loanOptional = loanService.create(request, score);
 
@@ -43,18 +44,14 @@ public class LoanController {
         // save transactions of loan
         loanTransactionLoggerService.saveLoanTransaction(loanOptional.get());
 
-        return new ResponseEntity<>(
-                loanOptional.get(),
-                HttpStatus.OK);
+        return new ResponseEntity<>(loanOptional.get(), HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<LoanDtoOutput>> getAll() {
         final List<LoanDtoOutput> loanDtoOutputList = loanService.getAll();
 
-        return new ResponseEntity<>(
-                loanDtoOutputList,
-                HttpStatus.OK);
+        return new ResponseEntity<>(loanDtoOutputList, HttpStatus.OK);
     }
 
     @GetMapping("/get-loan-transactions-by-date")
@@ -99,16 +96,21 @@ public class LoanController {
     @GetMapping("{id}")
     public ResponseEntity<LoanDtoOutput> getById(@PathVariable long id) {
         final LoanDtoOutput loanDtoOutput = loanService.getById(id);
+        if(loanDtoOutput == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-        return new ResponseEntity<>(
-                loanDtoOutput,
-                HttpStatus.OK);
+        return new ResponseEntity<>(loanDtoOutput, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        loanService.deleteById(id);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        try{
+            loanService.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        catch(LoanNotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

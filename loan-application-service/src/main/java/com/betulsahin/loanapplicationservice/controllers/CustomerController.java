@@ -2,6 +2,8 @@ package com.betulsahin.loanapplicationservice.controllers;
 
 import com.betulsahin.loanapplicationservice.dtos.CustomerDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.CustomerDtoOutput;
+import com.betulsahin.loanapplicationservice.exceptions.CustomerIsAlreadyExistException;
+import com.betulsahin.loanapplicationservice.exceptions.CustomerNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Customer;
 import com.betulsahin.loanapplicationservice.services.abstractions.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -42,7 +44,6 @@ public class CustomerController {
     @GetMapping("{id}")
     public ResponseEntity<CustomerDtoOutput> getById(@PathVariable long id){
         final CustomerDtoOutput customerDtoOutput = customerService.getById(id);
-
         if(customerDtoOutput == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -66,7 +67,7 @@ public class CustomerController {
         try{
             customerService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }catch (Exception e){
+        }catch (CustomerNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

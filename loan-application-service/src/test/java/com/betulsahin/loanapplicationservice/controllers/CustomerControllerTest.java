@@ -3,6 +3,7 @@ package com.betulsahin.loanapplicationservice.controllers;
 import com.betulsahin.loanapplicationservice.dtos.CustomerDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.CustomerDtoOutput;
 import com.betulsahin.loanapplicationservice.exceptions.CustomerIsAlreadyExistException;
+import com.betulsahin.loanapplicationservice.exceptions.CustomerNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Customer;
 import com.betulsahin.loanapplicationservice.services.abstractions.CustomerService;
 import org.junit.jupiter.api.Test;
@@ -177,7 +178,7 @@ class CustomerControllerTest {
     @Test
     void deleteById_itShouldReturnStatusNotFound_whenCustomerIdNotExist(){
         // given
-        Mockito.doThrow(CustomerIsAlreadyExistException.class).
+        Mockito.doThrow(CustomerNotFoundException.class).
                 when(mockCustomerService).deleteById(anyLong());
 
         // when
