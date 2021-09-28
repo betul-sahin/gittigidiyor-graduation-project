@@ -11,7 +11,7 @@ public class PhoneNumberValidator implements Predicate<String> {
 
     @Override
     public boolean test(String phoneNumber) {
-        String regex = "^\\d{10}$";
+        String regex = "^\\+{1}\\d{12}$";  // ^\d{10}$
 
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(phoneNumber);

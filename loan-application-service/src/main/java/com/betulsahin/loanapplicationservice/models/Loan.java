@@ -26,7 +26,6 @@ public class Loan extends AbstractBaseEntity {
 
 // TODO score-service in pushlanmasi
 // TODO frontend
-// TODO +90.. regex
 // TODO LoanValidator fix
 // TODO repository testleri
 // TODO : immutable ve valueobject islemleri
