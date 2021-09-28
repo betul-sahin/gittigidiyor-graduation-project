@@ -121,7 +121,12 @@ public class LoanServiceImpl implements LoanService {
     @Transactional
     @Override
     public void deleteById(Long id) {
-        loanRepository.deleteById(id);
+        Optional<Loan> loanOptional = loanRepository.findById(id);
+        if(!loanOptional.isPresent()){
+            throw new LoanNotFoundException(LOAN_NOT_FOUND);
+        }
+
+        loanRepository.delete(loanOptional.get());
 
         LOGGER.info("Delete this customer id {}", id);
     }

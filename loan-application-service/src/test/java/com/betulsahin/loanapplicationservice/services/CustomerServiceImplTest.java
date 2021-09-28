@@ -174,12 +174,12 @@ class CustomerServiceImplTest {
     void getById_itShouldReturnCustomerDto(){
         // given
         Customer customer = new Customer();
-       // customer.setIdentificationNumber("12345678900");
-        //customer.setPhoneNumber("5554443322");
+        customer.setIdentificationNumber("12345678900");
+        customer.setPhoneNumber("5554443322");
 
         CustomerDtoOutput response = new CustomerDtoOutput();
-        //response.setIdentificationNumber(customer.getIdentificationNumber());
-        //response.setPhoneNumber(customer.getPhoneNumber());
+        response.setIdentificationNumber(customer.getIdentificationNumber());
+        response.setPhoneNumber(customer.getPhoneNumber());
 
         when(mockCustomerMapper.mapToDto(any())).thenReturn(response);
 
