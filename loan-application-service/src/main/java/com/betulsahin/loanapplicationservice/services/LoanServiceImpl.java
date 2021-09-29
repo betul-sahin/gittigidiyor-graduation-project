@@ -2,6 +2,7 @@ package com.betulsahin.loanapplicationservice.services;
 
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
+import com.betulsahin.loanapplicationservice.dtos.LoanResponse;
 import com.betulsahin.loanapplicationservice.dtos.SmsRequest;
 import com.betulsahin.loanapplicationservice.exceptions.CustomerNotFoundException;
 import com.betulsahin.loanapplicationservice.exceptions.IdentificationNumberNotValidException;
@@ -69,10 +70,6 @@ public class LoanServiceImpl implements LoanService {
         SmsRequest smsRequest = new SmsRequest(customer.getPhoneNumber(), "bu bir mesaj");
         //smsSender.sendSms(smsRequest);
         LOGGER.info("Send sms {}", request);
-
-        // endpointten onay durum bilgisi ve kredi bilgisi dön
-
-        // return new CreditResultResponse();
 
         return Optional.of(savedLoan);
     }

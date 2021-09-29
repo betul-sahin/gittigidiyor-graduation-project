@@ -3,6 +3,7 @@ package com.betulsahin.loanapplicationservice.controllers;
 import com.betulsahin.loanapplicationservice.client.CreditScoreService;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
+import com.betulsahin.loanapplicationservice.dtos.LoanResponse;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Loan;
 import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;
@@ -52,14 +53,13 @@ class LoanControllerTest {
         when(mockLoanService.create(any(), anyInt())).thenReturn(Optional.of(loan));
 
         // when
-        ResponseEntity<Loan> response = underTest.create(request);
-        Loan actual = response.getBody();
+        ResponseEntity<LoanResponse> response = underTest.create(request);
+        LoanResponse actual = response.getBody();
 
         // then
         assertAll(
                 () -> assertNotNull(actual),
-                () -> assertEquals(HttpStatus.CREATED, response.getStatusCode()),
-                () -> assertEquals(loan, actual)
+                () -> assertEquals(HttpStatus.CREATED, response.getStatusCode())
         );
     }
 
@@ -76,7 +76,7 @@ class LoanControllerTest {
         when(mockLoanService.create(any(), anyInt())).thenReturn(Optional.empty());
 
         // when
-        ResponseEntity<Loan> response = underTest.create(request);
+        ResponseEntity<LoanResponse> response = underTest.create(request);
 
         // then
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());

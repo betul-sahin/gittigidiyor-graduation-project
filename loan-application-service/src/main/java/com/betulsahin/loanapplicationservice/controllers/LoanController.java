@@ -2,6 +2,7 @@ package com.betulsahin.loanapplicationservice.controllers;
 
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
+import com.betulsahin.loanapplicationservice.dtos.LoanResponse;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Loan;
 import com.betulsahin.loanapplicationservice.models.LoanTransactionLogger;
@@ -31,7 +32,7 @@ public class LoanController {
     private final LoanTransactionLoggerService loanTransactionLoggerService;
 
     @PostMapping
-    public ResponseEntity<Loan> create(@Valid @RequestBody LoanDtoInput request) {
+    public ResponseEntity<LoanResponse> create(@Valid @RequestBody LoanDtoInput request) {
 
         int score = creditScoreService.getCreditScoreByIdentificationNumber(request.getIdentificationNumber());
 
@@ -44,7 +45,11 @@ public class LoanController {
         // save transactions of loan
         loanTransactionLoggerService.saveLoanTransaction(loanOptional.get());
 
-        return new ResponseEntity<>(loanOptional.get(), HttpStatus.CREATED);
+        LoanResponse response = new LoanResponse();
+        response.setCreditResult(loanOptional.get().getCreditResult().toString());
+        response.setCreditAmount(loanOptional.get().getCreditAmount());
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping
