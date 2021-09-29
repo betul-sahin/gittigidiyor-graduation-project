@@ -118,6 +118,15 @@ public class LoanServiceImpl implements LoanService {
         return loanMapper.mapToDto(loan);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public LoanDtoOutput getByIdentificationNumber(String identificationNumber){
+        Loan loan = loanRepository.findByIdentificationNumber(identificationNumber)
+                .orElseThrow(() -> new LoanNotFoundException(LOAN_NOT_FOUND));
+
+        return loanMapper.mapToDto(loan);
+    }
+
     @Transactional
     @Override
     public void deleteById(Long id) {

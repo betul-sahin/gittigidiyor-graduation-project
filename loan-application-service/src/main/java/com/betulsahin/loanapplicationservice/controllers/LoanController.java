@@ -103,6 +103,16 @@ public class LoanController {
         return new ResponseEntity<>(loanDtoOutput, HttpStatus.OK);
     }
 
+    @GetMapping("/identification-number/{identificationNumber}")
+    public ResponseEntity<LoanDtoOutput> getByIdentificationNumber(String identificationNumber){
+        final LoanDtoOutput loanDtoOutput = loanService.getByIdentificationNumber(identificationNumber);
+        if(loanDtoOutput == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(loanDtoOutput, HttpStatus.OK);
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id) {
         try{

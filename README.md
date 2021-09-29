@@ -11,7 +11,7 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Business Rules</a></li>
+    <li><a href="#business-rules">Business Rules</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -100,9 +100,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## Contact
-[Betül Şahin](https://www.linkedin.com/in/betulsahin/)
-
 ## License
 Distributed under the MIT License. See [LICENSE](https://github.com/113-GittiGidiyor-Java-Spring-Bootcamp/gittigidiyor-graduation-project-betul-sahin/blob/main/LICENSE) for more information.  
 
+## Contact
+[Betül Şahin](https://www.linkedin.com/in/betulsahin/)

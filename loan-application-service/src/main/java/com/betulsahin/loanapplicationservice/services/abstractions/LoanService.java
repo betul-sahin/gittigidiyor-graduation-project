@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface LoanService {
     Optional<Loan> create(LoanDtoInput request, int score);
     List<LoanDtoOutput> getAll();
+    LoanDtoOutput getByIdentificationNumber(String identificationNumber);
     LoanDtoOutput getById(Long id);
     void deleteById(Long id);
 }
