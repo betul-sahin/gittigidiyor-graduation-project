@@ -19,7 +19,12 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li>
+        <a href="#usage">Usage</a>
+        <ul>
+            <li><a href="#swagger-ui">Swagger UI</a></li>
+        </ul>
+    </li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -91,8 +96,8 @@ Step 4. Run the loan application service
 - Mongo DB which using by credit score service hosted on `http://localhost:8081`  
 - Loan application service hosted on `http://localhost:8080`  
 
-### Loan Endpoints
-
+### Swagger UI
+Endpoints : `http://localhost:8080/swagger-ui.html`
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.  
