@@ -46,7 +46,7 @@ public class LoanController {
         loanTransactionLoggerService.saveLoanTransaction(loanOptional.get());
 
         LoanResponse response = new LoanResponse();
-        response.setCreditResult(loanOptional.get().getCreditResult().toString());
+        response.setCreditResult(loanOptional.get().getCreditResult().name());
         response.setCreditAmount(loanOptional.get().getCreditAmount());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);

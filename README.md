@@ -86,9 +86,12 @@ Step 4. Run the loan application service
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+- Discorvery service hosted on `http://localhost:9090`  
+- Credit score service hosted on `http://localhost:8082`  
+- Mongo DB which using by credit score service hosted on `http://localhost:8081`  
+- Loan application service hosted on `http://localhost:8080`  
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+### Loan Endpoints
 
 
 ## Contributing

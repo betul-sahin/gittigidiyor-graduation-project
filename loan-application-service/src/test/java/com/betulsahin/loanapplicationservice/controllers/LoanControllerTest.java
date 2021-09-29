@@ -46,11 +46,14 @@ class LoanControllerTest {
         int score = 500;
 
         LoanDtoInput request = new LoanDtoInput();
+        LoanResponse loanResponse = new LoanResponse();
 
         when(mockCreditScoreService.getCreditScoreByIdentificationNumber(any())).
                 thenReturn(score);
 
         when(mockLoanService.create(any(), anyInt())).thenReturn(Optional.of(loan));
+
+        doNothing().when(mockLoanTransactionLoggerService).saveLoanTransaction(any());
 
         // when
         ResponseEntity<LoanResponse> response = underTest.create(request);
