@@ -25,6 +25,5 @@ public class Loan extends AbstractBaseEntity {
 }
 
 // TODO frontend
-// TODO : findall ların testi transaction filan
 // TODO : anotasyonlarınhatalrının yakalanamsı
 // TODO : aws

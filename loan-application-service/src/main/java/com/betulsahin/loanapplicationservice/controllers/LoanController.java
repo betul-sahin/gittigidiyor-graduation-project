@@ -2,7 +2,7 @@ package com.betulsahin.loanapplicationservice.controllers;
 
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
-import com.betulsahin.loanapplicationservice.dtos.LoanResponse;
+import com.betulsahin.loanapplicationservice.dtos.response.LoanResponse;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Loan;
 import com.betulsahin.loanapplicationservice.models.LoanTransactionLogger;
@@ -46,7 +46,7 @@ public class LoanController {
         loanTransactionLoggerService.saveLoanTransaction(loanOptional.get());
 
         LoanResponse response = new LoanResponse();
-        response.setCreditResult(loanOptional.get().getCreditResult().name());
+        response.setCreditResult(loanOptional.get().getCreditResult());
         response.setCreditAmount(loanOptional.get().getCreditAmount());
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);

@@ -3,7 +3,7 @@ package com.betulsahin.loanapplicationservice.controllers;
 import com.betulsahin.loanapplicationservice.client.CreditScoreService;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
-import com.betulsahin.loanapplicationservice.dtos.LoanResponse;
+import com.betulsahin.loanapplicationservice.dtos.response.LoanResponse;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;
 import com.betulsahin.loanapplicationservice.models.Loan;
 import com.betulsahin.loanapplicationservice.services.abstractions.LoanService;

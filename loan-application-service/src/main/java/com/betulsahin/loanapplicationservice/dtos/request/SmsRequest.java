@@ -1,4 +1,4 @@
-package com.betulsahin.loanapplicationservice.dtos;
+package com.betulsahin.loanapplicationservice.dtos.request;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

@@ -2,8 +2,7 @@ package com.betulsahin.loanapplicationservice.services;
 
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
-import com.betulsahin.loanapplicationservice.dtos.LoanResponse;
-import com.betulsahin.loanapplicationservice.dtos.SmsRequest;
+import com.betulsahin.loanapplicationservice.dtos.request.SmsRequest;
 import com.betulsahin.loanapplicationservice.exceptions.CustomerNotFoundException;
 import com.betulsahin.loanapplicationservice.exceptions.IdentificationNumberNotValidException;
 import com.betulsahin.loanapplicationservice.exceptions.LoanNotFoundException;

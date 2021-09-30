@@ -1,6 +1,6 @@
 package com.betulsahin.loanapplicationservice.exceptions;
 
-import com.betulsahin.loanapplicationservice.dtos.AppErrorResponse;
+import com.betulsahin.loanapplicationservice.dtos.response.AppErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
