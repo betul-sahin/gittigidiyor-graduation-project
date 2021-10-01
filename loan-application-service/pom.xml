@@ -207,7 +207,7 @@
                 </plugins>
             </build>
         </profile-->
-        <profile>
+        <!--profile>
             <id>jib-push-to-local</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -220,7 +220,7 @@
                         <version>2.5.2</version>
                         <configuration>
                             <from>
-                                <image>docker://openjdk:8@sha256:29790ba47d15339629a8e6c2ae971b5ec417e2b99b24a4f2506d29439bd5bcb4</image>
+                                <image>openjdk:8@sha256:29790ba47d15339629a8e6c2ae971b5ec417e2b99b24a4f2506d29439bd5bcb4</image>
                             </from>
                             <container>
                                 <ports>
@@ -258,7 +258,7 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
+        </profile-->
 
     </profiles>
 
