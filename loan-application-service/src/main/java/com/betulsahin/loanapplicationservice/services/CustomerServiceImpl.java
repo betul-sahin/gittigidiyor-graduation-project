@@ -25,6 +25,14 @@ import java.util.stream.Collectors;
 
 import static com.betulsahin.loanapplicationservice.utils.AppErrorMessages.*;
 
+/**
+ * The CustomerServiceImpl class implements a CustomerService that
+ * simply performs database operations such as create, update, delete.
+ *
+ * @author  Betül Şahin
+ * @version 1.0
+ * @since   2021-10-01
+ */
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
