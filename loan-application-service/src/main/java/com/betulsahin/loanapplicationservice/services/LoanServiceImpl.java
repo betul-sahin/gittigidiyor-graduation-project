@@ -40,6 +40,13 @@ public class LoanServiceImpl implements LoanService {
     private final LoanMapper loanMapper;
     private final SmsSender smsSender;
 
+    /**
+     * Creates new loan to database.
+     *
+     * @param request the dto object required to create a new loan application
+     * @param score the credit score point of the customer
+     * @return the saved loan application as {@link Optional<Loan>}
+     */
     @Transactional
     @Override
     public Optional<Loan> create(LoanDtoInput request, int score) {
@@ -73,6 +80,13 @@ public class LoanServiceImpl implements LoanService {
         return Optional.of(savedLoan);
     }
 
+    /**
+     * Calculates credit amount and credit result of customer.
+     *
+     * @param customer the customer object required to calculate result of credit
+     * @param creditScore the credit score point of the customer
+     * @return a {@link Loan}
+     */
     private Loan calculateCreditAmountAndCreditResult(Customer customer, int creditScore){
 
         Loan loan = new Loan();
@@ -96,6 +110,11 @@ public class LoanServiceImpl implements LoanService {
         return loan;
     }
 
+    /**
+     * Gets all loan applications.
+     *
+     * @return a {@link List<LoanDtoOutput>}
+     */
     @Transactional(readOnly = true)
     @Override
     public List<LoanDtoOutput> getAll() {
@@ -105,6 +124,12 @@ public class LoanServiceImpl implements LoanService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets the loan by id.
+     *
+     * @param id required to filter loan applications
+     * @return a {@link LoanDtoOutput}
+     */
     @Transactional(readOnly = true)
     @Override
     public LoanDtoOutput getById(Long id) {
@@ -114,6 +139,12 @@ public class LoanServiceImpl implements LoanService {
         return loanMapper.mapToDto(loan);
     }
 
+    /**
+     * Gets the loan by identification number.
+     *
+     * @param identificationNumber required to filter loan applications
+     * @return a {@link LoanDtoOutput}
+     */
     @Transactional(readOnly = true)
     @Override
     public LoanDtoOutput getByIdentificationNumber(String identificationNumber){
@@ -123,6 +154,11 @@ public class LoanServiceImpl implements LoanService {
         return loanMapper.mapToDto(loan);
     }
 
+    /**
+     * Deletes the loan by id.
+     *
+     * @param id required to delete loan applications
+     */
     @Transactional
     @Override
     public void deleteById(Long id) {

@@ -20,10 +20,15 @@ public class TwilioSmsSenderImpl implements SmsSender {
     private final TwilioConfiguration twilioConfiguration;
     private final PhoneNumberValidator phoneNumberValidator;
 
+    /**
+     * Sends a sms request.
+     *
+     * @param request
+     */
     @Override
     public void sendSms(SmsRequest request) {
         // If phone number is valid it throws exception
-        // phoneNumberValidator.test(request.getPhoneNumber());
+        phoneNumberValidator.test(request.getPhoneNumber());
 
         PhoneNumber to = new PhoneNumber(request.getPhoneNumber());
         PhoneNumber from = new PhoneNumber(twilioConfiguration.getTrialNumber());
