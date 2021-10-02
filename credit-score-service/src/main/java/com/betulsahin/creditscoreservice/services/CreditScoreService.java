@@ -13,6 +13,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
+/**
+ * The CreditScoreService class that simply get credit score of customer.
+ *
+ * @author  Betül Şahin
+ * @version 1.0
+ * @since   2021-10-01
+ */
 @Service
 @RequiredArgsConstructor
 public class CreditScoreService {
@@ -21,6 +28,12 @@ public class CreditScoreService {
     private final CreditScoreRepository creditScoreRepository;
     private final IdentificationNumberValidator identificationNumberValidator;
 
+    /**
+     * Gets credit score point of customer.
+     *
+     * @param identificationNumber of the customer
+     * @return credit score point of the customer
+     */
     @Transactional(readOnly = true)
     public int getCreditScoreByIdentificationNumber(String identificationNumber) {
 
@@ -42,22 +55,18 @@ public class CreditScoreService {
         return score;
     }
 
+    /**
+     * Generates credit score point of customer using with last digit of identification number.
+     *
+     * @param creditScore the credit score point
+     * @param lastDigitOfIdentificationNumber the last digit of identification number
+     * @return credit score point of the customer
+     */
     private int generateCreditScore(CreditScore creditScore, int lastDigitOfIdentificationNumber){
         int score = 0;
         if(creditScore.getLastDigit().equals(lastDigitOfIdentificationNumber)){
             score = creditScore.getScore();
         }
-
-        /*
-        CreditScoreResponse response = new CreditScoreResponse();
-        if(creditScore.getLastDigit().equals(lastDigitOfIdentificationNumber)){
-            response.setSuccess(true);
-            response.setScore(creditScore.getScore());
-        }else{
-            response.setSuccess(false);
-            response.setScore(0);
-        }
-        */
 
         return score;
     }
