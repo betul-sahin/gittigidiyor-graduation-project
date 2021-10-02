@@ -35,6 +35,12 @@ public class CustomerServiceImpl implements CustomerService {
     private final IdentificationNumberValidator identificationNumberValidator;
     private final PhoneNumberValidator phoneNumberValidator;
 
+    /**
+     * Creates new customer to database.
+     *
+     * @param request the dto object required to create a new customer
+     * @return the saved customer as {@link Optional<Customer>}
+     */
     @Transactional
     @Override
     public Optional<Customer> create(CustomerDtoInput request) {
@@ -74,6 +80,11 @@ public class CustomerServiceImpl implements CustomerService {
         return Optional.of(savedCustomer);
     }
 
+    /**
+     * Gets all customers.
+     *
+     * @return a {@link List<CustomerDtoOutput>}
+     */
     @Transactional(readOnly = true)
     @Override
     public List<CustomerDtoOutput> getAll() {
@@ -83,6 +94,12 @@ public class CustomerServiceImpl implements CustomerService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets the customer by id
+     *
+     * @param id the id of the customer
+     * @return a {@link CustomerDtoOutput}
+     */
     @Transactional(readOnly = true)
     @Override
     public CustomerDtoOutput getById(Long id) {
@@ -92,6 +109,12 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.mapToDto(customer);
     }
 
+    /**
+     * Updates the customer.
+     *
+     * @param request the dto object required to update current customer.
+     * @return the updated customer as {@link Optional<Customer>}
+     */
     @Transactional
     @Override
     public Optional<Customer> update(CustomerDtoInput request) {
@@ -132,6 +155,11 @@ public class CustomerServiceImpl implements CustomerService {
         return Optional.of(updatedCustomer);
     }
 
+    /**
+     * Deletes the customer by id.
+     *
+     * @param id the id of the customer required to delete customer
+     */
     @Transactional
     @Override
     public void deleteById(Long id) {
