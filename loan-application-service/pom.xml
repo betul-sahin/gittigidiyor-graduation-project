@@ -19,7 +19,7 @@
         <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <io.springfox.version>2.9.2</io.springfox.version>
         <app.image.name>loan-application-service</app.image.name>
-        <app.image.tag/>
+        <app.image.tag>0.0.1-SNAPSHOT</app.image.tag>
     </properties>
     <dependencies>
         <dependency>
@@ -101,6 +101,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
