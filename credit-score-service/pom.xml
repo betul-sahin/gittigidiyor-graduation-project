@@ -16,6 +16,8 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <app.image.name>credit-score-service</app.image.name>
+        <app.image.tag>0.0.1-SNAPSHOT</app.image.tag>
     </properties>
     <dependencies>
         <dependency>
@@ -74,9 +76,132 @@
                 </configuration>
             </plugin>
 
-
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.5.2</version>
+                <configuration>
+                    <from>
+                        <image>docker://openjdk:8@sha256:29790ba47d15339629a8e6c2ae971b5ec417e2b99b24a4f2506d29439bd5bcb4</image>
+                    </from>
+                    <container>
+                        <ports>
+                            <port>8082</port>
+                        </ports>
+                        <format>OCI</format>
+                    </container>
+                </configuration>
+            </plugin>
 
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>jib-push-to-dockerhub</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>2.5.2</version>
+                        <configuration>
+                            <from>
+                                <image>docker://openjdk:8@sha256:29790ba47d15339629a8e6c2ae971b5ec417e2b99b24a4f2506d29439bd5bcb4</image>
+                            </from>
+                            <container>
+                                <ports>
+                                    <port>8082</port>
+                                </ports>
+                                <format>OCI</format>
+                            </container>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>push-custom-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <to>
+                                        <image>docker.io/betulsahinn/${app.image.name}:${app.image.tag}</image>
+                                    </to>
+                                </configuration>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-latest-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <to>
+                                        <image>docker.io/betulsahinn/${app.image.name}:latest</image>
+                                    </to>
+                                </configuration>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jib-push-to-local</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.google.cloud.tools</groupId>
+                        <artifactId>jib-maven-plugin</artifactId>
+                        <version>2.5.2</version>
+                        <configuration>
+                            <from>
+                                <image>openjdk:8@sha256:29790ba47d15339629a8e6c2ae971b5ec417e2b99b24a4f2506d29439bd5bcb4</image>
+                            </from>
+                            <container>
+                                <ports>
+                                    <port>8082</port>
+                                </ports>
+                                <format>OCI</format>
+                            </container>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>push-custom-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <to>
+                                        <image>betulsahinn/${app.image.name}:${app.image.tag}</image>
+                                    </to>
+                                </configuration>
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-latest-tag</id>
+                                <phase>package</phase>
+                                <configuration>
+                                    <to>
+                                        <image>betulsahinn/${app.image.name}:latest</image>
+                                    </to>
+                                </configuration>
+                                <goals>
+                                    <goal>dockerBuild</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 
 </project>
