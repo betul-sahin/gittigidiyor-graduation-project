@@ -2,6 +2,7 @@ package com.betulsahin.loanapplicationservice.exceptions;
 
 import com.betulsahin.loanapplicationservice.dtos.response.AppErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -9,6 +10,22 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseBody
+    public AppErrorResponse handleValidationException(MethodArgumentNotValidException ex){
+        StringBuilder stringBuilderErrorMessages = new StringBuilder();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String errorMessage = error.getDefaultMessage();
+            stringBuilderErrorMessages.append(errorMessage);
+        });
+
+        AppErrorResponse response = prepareErrorResponse(HttpStatus.BAD_REQUEST,
+                stringBuilderErrorMessages.toString());
+
+        return response;
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({CustomerIsAlreadyExistException.class})
