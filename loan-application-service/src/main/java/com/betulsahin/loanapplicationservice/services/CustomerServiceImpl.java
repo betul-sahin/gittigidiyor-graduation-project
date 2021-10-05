@@ -79,6 +79,14 @@ public class CustomerServiceImpl implements CustomerService {
 
         LOGGER.info("Validate phone number {}", request.getPhoneNumber());
 
+        // Is the customer already registered with same phone number?
+        customerOptional = customerRepository.
+                findByPhoneNumber(request.getPhoneNumber());
+
+        if (customerOptional.isPresent()) {
+            throw new CustomerIsAlreadyExistException(CUSTOMER_FOUND);
+        }
+
         Customer customer = customerMapper.map(request);
 
         Customer savedCustomer = customerRepository.save(customer);
