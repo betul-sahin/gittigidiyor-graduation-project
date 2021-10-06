@@ -1,0 +1,36 @@
+# Use postgres/mypassword user/password credentials
+version: '3.1'
+
+services:
+  loan-application-service:
+    image: betulsahinn/loan-application-service:0.0.1-SNAPSHOT
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      PostgreSQL:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://PostgreSQL:5432/loan_application_data
+      SPRING_DATASOURCE_USERNAME: "postgres"
+      SPRING_DATASOURCE_PASSWORD: "mypassword"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://discover-server:9090/eureka/
+      TWILLO.ACCOUNT_SID: AC3b2d6a864cfff2d536d98de23b628fb7
+      TWILLO.AUTH_TOKEN: 785ab55a79daab918ce080113762be92
+      TWILLO.TRIAL_NUMBER: +12015822294
+
+  PostgreSQL:
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=mypassword
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=loan_application_data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
