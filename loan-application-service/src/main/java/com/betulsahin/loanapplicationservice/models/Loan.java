@@ -19,7 +19,6 @@ public class Loan extends AbstractBaseEntity {
     @Enumerated(EnumType.STRING)
     private CreditResult creditResult;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY) //cascade = { CascadeType.MERGE, CascadeType.REMOVE}
     private Customer customer;
 }

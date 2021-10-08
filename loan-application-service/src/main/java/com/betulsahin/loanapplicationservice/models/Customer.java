@@ -26,5 +26,5 @@ public class Customer extends AbstractBaseEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<Loan> loans = new ArrayList<>();
+    private Set<Loan> loans = new HashSet<>();
 }
