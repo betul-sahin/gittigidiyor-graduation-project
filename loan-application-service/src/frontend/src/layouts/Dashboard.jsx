@@ -1,7 +1,7 @@
 import React from 'react'
 import LoanList from '../pages/LoanList'
 import Categories from './Categories'
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 function Dashboard() {
     return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { Icon, Menu, Table } from 'semantic-ui-react'
 import LoanService from '../services/loanService'
 
@@ -10,16 +10,15 @@ export default function LoanList() {
         let loanService = new LoanService()
         loanService
         .getLoans()
-        .then(result => setLoans(result.data.data))
-    })
+        .then(result => setLoans(result.data))
+    }, [])
 
     return (
         <div>
             <Table celled>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>Adı Soyadı</Table.HeaderCell>
-                        <Table.HeaderCell>TC Kimlik No</Table.HeaderCell>
+                        <Table.HeaderCell>Musteri ID</Table.HeaderCell>
                         <Table.HeaderCell>Kredi Miktarı</Table.HeaderCell>
                         <Table.HeaderCell>Kredi Limit Çarpanı</Table.HeaderCell>
                         <Table.HeaderCell>Kredi Sonucu</Table.HeaderCell>
@@ -29,8 +28,7 @@ export default function LoanList() {
                 <Table.Body>
                     {loans.map((loan) => (
                         <Table.Row key={loan.id}>
-                            <Table.Cell>{loan.customer.firstName}</Table.Cell>
-                            <Table.Cell>{loan.identificationNumber}</Table.Cell>
+                            <Table.Cell>{loan.customerId}</Table.Cell>
                             <Table.Cell>{loan.creditAmount}</Table.Cell>
                             <Table.Cell>{loan.creditLimitMultiplier }</Table.Cell>
                             <Table.Cell>{loan.creditResult}</Table.Cell>

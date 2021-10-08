@@ -36,7 +36,7 @@ function(id, ...products){
 spread -> ayrıştırmak anlamında.
 rest te array geçilmişse ayrıştırmak
 icin kullanıyoruz.
-let points = [1, 2 ,3, 4 ,5]
+let points = [1,f2 ,3, 4 ,5]
 console.log(...points)
 
 destructuring ->
