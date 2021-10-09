@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Icon, Menu, Table } from 'semantic-ui-react'
 import LoanService from '../services/loanService'
 
@@ -9,8 +10,8 @@ export default function LoanList() {
     useEffect(() => {
         let loanService = new LoanService()
         loanService
-        .getLoans()
-        .then(result => setLoans(result.data))
+            .getLoans()
+            .then(result => setLoans(result.data))
     }, [])
 
     return (
@@ -28,9 +29,11 @@ export default function LoanList() {
                 <Table.Body>
                     {loans.map((loan) => (
                         <Table.Row key={loan.id}>
-                            <Table.Cell>{loan.customerId}</Table.Cell>
+                            <Table.Cell>
+                                <Link to={`/loans/${loan.id}`}>{loan.customerId}</Link>
+                            </Table.Cell>
                             <Table.Cell>{loan.creditAmount}</Table.Cell>
-                            <Table.Cell>{loan.creditLimitMultiplier }</Table.Cell>
+                            <Table.Cell>{loan.creditLimitMultiplier}</Table.Cell>
                             <Table.Cell>{loan.creditResult}</Table.Cell>
                         </Table.Row>
                     ))}

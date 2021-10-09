@@ -7,10 +7,10 @@ import Navi from './layouts/Navi';
 function App() {
   return (
     <div className="App">
-      <Navi />
+      <Navi/>
       <Container className="main">
-        <Dashboard />
-      </Container>
+         <Dashboard/>
+      </Container>    
     </div>
   );
 }
@@ -45,4 +45,10 @@ let [small, medium, large] = populations
 console.log(small)
 console.log(medium)
 console.log(large)
+
+REDUX -> State management
+store -> Global state imiz
+action -> sepete ekle, sepetten sil gibi aksiyonlarimiz
+reducer -> bizim sepetimiz, yani state imiz. state yonetimini
+yaptigimiz yer. 
 */

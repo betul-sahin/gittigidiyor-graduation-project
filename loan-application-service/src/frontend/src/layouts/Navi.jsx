@@ -3,12 +3,16 @@ import { Menu, Container } from 'semantic-ui-react'
 import LoanSummary from './LoanSummary'
 import SignedIn from './SignedIn'
 import SignedOut from './SignedOut'
+import {useHistory} from 'react-router'
 
 export default function Navi() {
     const [isAuthenticated, setIsAuthenticated] = useState(true)
+    const history = useHistory()
 
     function handleSignOut(params){
         setIsAuthenticated(false)
+        // cikis yaptiginda anasayfaya yonlensin
+        history.push("/")
     }
 
     function handleSignIn(params){
