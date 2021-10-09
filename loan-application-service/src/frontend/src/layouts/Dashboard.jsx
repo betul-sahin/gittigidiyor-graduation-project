@@ -1,7 +1,7 @@
 import React from 'react'
 import LoanList from '../pages/LoanList'
+import LoanAdd from '../pages/LoanAdd'
 import LoanDetail from '../pages/LoanDetail'
-import LoanSummaryDetail from '../pages/LoanSummaryDetail'
 import Categories from './Categories'
 import { Grid } from 'semantic-ui-react'
 import { Route } from "react-router"
@@ -17,8 +17,8 @@ export default function Dashboard() {
                     <Grid.Column width={12}>
                         <Route exact path="/" component={LoanList}/>
                         <Route exact path="/loans" component={LoanList}/>
-                        <Route path="/loans/:loanId" component={LoanDetail}/>
-                        <Route exact path="/latest-loans" component={LoanSummaryDetail}/>
+                        <Route path="/loans/:id" component={LoanDetail}/>
+                        <Route exact path="/loan/add" component={LoanAdd}/>
                     </Grid.Column>
                 </Grid.Row>
             </Grid>

@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from "react";
+import {useDispatch} from "react-redux"
 import { Link } from "react-router-dom";
 import { Icon, Menu, Table } from 'semantic-ui-react'
-import LoanService from '../services/loanService'
+import LoanService from '../services/LoanService'
 
 export default function LoanList() {
+
+    const dispatch = useDispatch()
+
     const [loans, setLoans] = useState([])
+
 
     // yuklenirken calismasini istediklerimi buraya yaziyorum
     useEffect(() => {
         let loanService = new LoanService()
-        loanService
-            .getLoans()
-            .then(result => setLoans(result.data))
+        loanService.getLoans().then(response => {
+            setLoans(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
     }, [])
 
     return (
@@ -19,10 +26,12 @@ export default function LoanList() {
             <Table celled>
                 <Table.Header>
                     <Table.Row>
+                        <Table.HeaderCell>#</Table.HeaderCell>
                         <Table.HeaderCell>Musteri ID</Table.HeaderCell>
                         <Table.HeaderCell>Kredi Miktarı</Table.HeaderCell>
                         <Table.HeaderCell>Kredi Limit Çarpanı</Table.HeaderCell>
                         <Table.HeaderCell>Kredi Sonucu</Table.HeaderCell>
+                        <Table.HeaderCell></Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 

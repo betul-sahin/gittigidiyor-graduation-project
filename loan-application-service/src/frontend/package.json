@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
     "es6-module-loader": "^0.17.11",
+    "formik": "^2.2.9",
     "lite-server": "^2.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -19,7 +20,8 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.4",
     "traceur": "0.0.111",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

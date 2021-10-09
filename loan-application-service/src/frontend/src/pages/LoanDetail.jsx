@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router'
-import { Button, Card, Image } from 'semantic-ui-react'
-import LoanService from '../services/loanService'
+import { Button, Card } from 'semantic-ui-react'
+import LoanService from '../services/LoanService'
 
 export default function LoanDetail() {
     // Loan list sayfasindan buraya gelirken eklenen id yakalaniyor
-    let { loanId } = useParams()
+    let { id } = useParams()
     const [loan, setLoan] = useState({})
 
     useEffect(() => {
         let loanService = new LoanService()
         loanService
-            .getLoanById(loanId)
+            .getLoanById(id)
             .then(result => setLoan(result.data))
     }, [])
 
@@ -20,11 +20,6 @@ export default function LoanDetail() {
             <Card.Group>
                 <Card fluid>
                     <Card.Content>
-                        <Image
-                            floated='right'
-                            size='mini'
-                            src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                        />
                         <Card.Header>Loan {loan.id} detay sayfasi</Card.Header>
                         <Card.Meta>Friends of Elliot</Card.Meta>
                         <Card.Description>
