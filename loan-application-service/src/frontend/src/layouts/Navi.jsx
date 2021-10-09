@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Menu, Container } from 'semantic-ui-react'
-import CartSummary from './CartSummary'
+import LoanSummary from './LoanSummary'
 import SignedIn from './SignedIn'
 import SignedOut from './SignedOut'
 
@@ -27,7 +27,7 @@ export default function Navi() {
                     />
 
                     <Menu.Menu position='right'>
-                        <CartSummary/>
+                        <LoanSummary/>
                         {isAuthenticated ? <SignedIn signOut={handleSignOut} bisey="1"/> : <SignedOut signIn={handleSignIn} />}
                     </Menu.Menu>
                 </Container>
