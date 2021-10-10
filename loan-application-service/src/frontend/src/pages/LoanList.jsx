@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from "react";
-import {useDispatch} from "react-redux"
 import { Link } from "react-router-dom";
 import { Icon, Menu, Table } from 'semantic-ui-react'
 import LoanService from '../services/LoanService'
 
 export default function LoanList() {
-
-    const dispatch = useDispatch()
-
     const [loans, setLoans] = useState([])
-
 
     // yuklenirken calismasini istediklerimi buraya yaziyorum
     useEffect(() => {
