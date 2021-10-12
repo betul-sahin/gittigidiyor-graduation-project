@@ -3,5 +3,11 @@
 }
 
 .ui.main.container{
-  margin-top: 4em;
+  margin-top: 5em;
+}
+
+.ui.form{
+  margin-top: 2em;
+  padding: 3em;
+  background-color: whitesmoke;
 }
