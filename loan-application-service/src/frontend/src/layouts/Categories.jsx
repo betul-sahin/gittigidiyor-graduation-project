@@ -9,10 +9,7 @@ export default function Categories() {
                     name='home'
                 />
                 <Menu.Item
-                    name='messages'
-                />
-                <Menu.Item
-                    name='friends'
+                    name='apply for loan'
                 />
             </Menu>
         </div>

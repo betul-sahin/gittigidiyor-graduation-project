@@ -26,7 +26,7 @@ export default function Navi() {
                         name='home'
                     />
                     <Menu.Item
-                        name='messages'
+                        name='apply for loan'
                     />
 
                     <Menu.Menu position='right'>
