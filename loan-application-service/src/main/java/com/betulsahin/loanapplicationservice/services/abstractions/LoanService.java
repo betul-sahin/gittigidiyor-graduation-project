@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LoanService {
-    Optional<Loan> create(LoanDtoInput request, int score);
+    Optional<Loan> create(LoanDtoInput request);
     List<LoanDtoOutput> getAll();
     LoanDtoOutput getByIdentificationNumber(String identificationNumber);
     LoanDtoOutput getById(Long id);

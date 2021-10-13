@@ -28,15 +28,12 @@ import java.util.Optional;
 @CrossOrigin
 public class LoanController {
     private final LoanService loanService;
-    private final CreditScoreService creditScoreService;
     private final LoanTransactionLoggerService loanTransactionLoggerService;
 
     @PostMapping
     public ResponseEntity<LoanResponse> create(@Valid @RequestBody LoanDtoInput request) {
 
-        int score = creditScoreService.getCreditScoreByIdentificationNumber(request.getIdentificationNumber());
-
-        Optional<Loan> loanOptional = loanService.create(request, score);
+        Optional<Loan> loanOptional = loanService.create(request);
 
         if (!loanOptional.isPresent()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

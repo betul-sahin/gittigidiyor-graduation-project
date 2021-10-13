@@ -1,5 +1,6 @@
 package com.betulsahin.loanapplicationservice.services;
 
+import com.betulsahin.loanapplicationservice.client.CreditScoreService;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoInput;
 import com.betulsahin.loanapplicationservice.dtos.LoanDtoOutput;
 import com.betulsahin.loanapplicationservice.dtos.request.SmsRequest;
@@ -34,6 +35,7 @@ import static com.betulsahin.loanapplicationservice.utils.AppErrorMessages.LOAN_
 public class LoanServiceImpl implements LoanService {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoanServiceImpl.class);
 
+    private final CreditScoreService creditScoreService;
     private final LoanRepository loanRepository;
     private final CustomerRepository customerRepository;
     private final IdentificationNumberValidator identificationNumberValidator;
@@ -49,7 +51,9 @@ public class LoanServiceImpl implements LoanService {
      */
     @Transactional
     @Override
-    public Optional<Loan> create(LoanDtoInput request, int score) {
+    public Optional<Loan> create(LoanDtoInput request) {
+
+        int score = 500;//creditScoreService.getCreditScoreByIdentificationNumber(request.getIdentificationNumber());
 
         // Is the identification number valid ?
         boolean isValidIdentificationNumber = identificationNumberValidator.
@@ -61,9 +65,22 @@ public class LoanServiceImpl implements LoanService {
 
         LOGGER.info("Validate identification number {}", request.getIdentificationNumber());
 
-        // If he/she is current customer
-        Customer customer = customerRepository.findByIdentificationNumber(request.getIdentificationNumber()).
-                orElseThrow(() -> new CustomerNotFoundException(CUSTOMER_NOT_FOUND));
+        // If he/she is current customer or not
+        Optional<Customer> customerOptional = customerRepository.findByIdentificationNumber(
+                request.getIdentificationNumber());
+        Customer customer = new Customer();
+        if(!customerOptional.isPresent()){
+            // new customer
+            customer.setIdentificationNumber(request.getIdentificationNumber());
+            customer.setFirstName(request.getFirstName());
+            customer.setLastName(request.getLastName());
+            customer.setPhoneNumber(request.getPhoneNumber());
+            customer.setMonthlyIncome(request.getMonthlyIncome());
+            customerRepository.save(customer);
+        }else{
+            // current customer
+            customer = customerOptional.get();
+        }
 
         Loan loan = this.calculateCreditAmountAndCreditResult(customer, score);
 

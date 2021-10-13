@@ -69,7 +69,7 @@ public class LoanServiceImplTest {
         when(mockLoanRepository.save(any())).thenReturn(expected);
 
         // when
-        Loan actual = underTest.create(request, score).get();
+        Loan actual = underTest.create(request).get();
 
         // then
         assertAll(
@@ -88,7 +88,7 @@ public class LoanServiceImplTest {
         when(mockIdentificationNumberValidator.test(any())).thenReturn(false);
 
         // when
-        Executable executable = () -> underTest.create(request, score).get();
+        Executable executable = () -> underTest.create(request).get();
 
         // then
         assertThrows(IdentificationNumberNotValidException.class, executable);
@@ -110,7 +110,7 @@ public class LoanServiceImplTest {
                 thenReturn(Optional.empty());
 
         // when
-        Executable executable = () -> underTest.create(request, score).get();
+        Executable executable = () -> underTest.create(request).get();
 
         // then
         assertThrows(CustomerNotFoundException.class, executable);

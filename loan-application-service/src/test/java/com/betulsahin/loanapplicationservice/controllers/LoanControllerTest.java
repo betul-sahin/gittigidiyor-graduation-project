@@ -51,7 +51,7 @@ class LoanControllerTest {
         when(mockCreditScoreService.getCreditScoreByIdentificationNumber(any())).
                 thenReturn(score);
 
-        when(mockLoanService.create(any(), anyInt())).thenReturn(Optional.of(loan));
+        when(mockLoanService.create(any())).thenReturn(Optional.of(loan));
 
         doNothing().when(mockLoanTransactionLoggerService).saveLoanTransaction(any());
 
@@ -76,7 +76,7 @@ class LoanControllerTest {
         when(mockCreditScoreService.getCreditScoreByIdentificationNumber(any())).
                 thenReturn(score);
 
-        when(mockLoanService.create(any(), anyInt())).thenReturn(Optional.empty());
+        when(mockLoanService.create(any())).thenReturn(Optional.empty());
 
         // when
         ResponseEntity<LoanResponse> response = underTest.create(request);
