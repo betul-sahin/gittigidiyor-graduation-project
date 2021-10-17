@@ -19,7 +19,7 @@ export default function LoanAdd() {
 
     const postData = (loan) => {
         console.log(loan)
-        axios.post(`http://localhost:8080/api/v1/loans/`, loan)
+        axios.post(`api/v1/loans/`, loan)
     }
 
     return (

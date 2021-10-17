@@ -39,6 +39,7 @@ export default function LoanList() {
                             <Table.Cell>{loan.creditAmount}</Table.Cell>
                             <Table.Cell>{loan.creditLimitMultiplier}</Table.Cell>
                             <Table.Cell>{loan.creditResult}</Table.Cell>
+                            <Table.Cell></Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>
