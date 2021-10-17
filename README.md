@@ -1,53 +1,21 @@
-<h3 align=center>Loan Application System</h3>
-<p align="center">Loan application system is a Restfull application which written using with Spring Boot Framework.</p>
+# Loan Application System :receipt:
+Loan application system is a Restfull application which written using with Spring Boot. It receives loan applications and returns the credit result to the customer according to the relevant criteria.
 
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li><a href="#business-rules">Business Rules</a></li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li>
-        <a href="#usage">Usage</a>
-        <ul>
-            <li><a href="#swagger-ui">Swagger UI</a></li>
-        </ul>
-    </li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ol>
-</details>
+## Tech stack and whys :hammer_and_wrench:
+- [Spring Boot](https://spring.io/projects/spring-boot)  
+- [Spring Data Jpa](https://spring.io/projects/spring-data-jpa)  
+- [Spring Cloud](https://spring.io/projects/spring-cloud)  
+- [Feign Client](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-feign.html)  
+- [Eureka Server](https://cloud.spring.io/spring-cloud-netflix/multi/multi_spring-cloud-eureka-server.html)   
+- [Postgre Sql](https://www.postgresql.org/)  
+- [Mongo DB](https://www.mongodb.com/)  
+- [Mapstruct](https://mapstruct.org/)  - Good performance than other java mapping framework
+- [Lombok](https://projectlombok.org/)  - Less boilerplate code
+- [Swagger](https://swagger.io/) - Easy implementation and widespread use
+- [Docker](https://www.docker.com/)    
+- [AWS Elastic Beanstalk & RDS](https://aws.amazon.com/tr/)   
 
-## About The Project  
-It receives loan applications and returns the credit result to the customer according to the relevant criteria.
-
-### Built With
-- Spring Boot  
-- Spring Data Jpa  
-- Spring Cloud  
-- Feign Client  
-- Eureka Server   
-- Postgre Sql  
-- Mongo DB  
-- Mapstruct  
-- Lombok  
-- Swagger
-- Docker
-
-## Business Rules
+## Business Rules :pushpin:
 - CRUD operations for Customer/Loan.
 - If the credit score is below 500 points, the loan application of the customer is rejected. (Credit result: REJECTION)
 - If the credit score is between 500 points and 1000 points and the monthly income is below 5000 TL, the loan application of the customer is approved. A limit of 10,000 TL is assigned to the customer. (Credit result: APPROVAL)
@@ -57,7 +25,7 @@ It receives loan applications and returns the credit result to the customer acco
 - A completed loan application is only queried with an identification number.
 
 <!-- GETTING STARTED -->
-## Getting Started
+## Getting Started 💥
 There are 3 modules in the project. Discover service, credit score service and loan application service. Run these services by following the steps below.   
 
 ### Prerequisites
@@ -74,22 +42,21 @@ Step 1. Clone the repo to your local
 Step 2. Run the discovery service
    ```sh
    cd discovery-service
-   mvn clean install spring-boot:run
+   docker-compose -f docker-compose.yml up -d
    ```
 Step 3. Run the credit score service
    ```sh
    cd credit-score-service
    docker-compose -f docker-compose.yml up -d
-   mvn clean install spring-boot:run
    ```
 Step 4. Run the loan application service
    ```sh
    cd loan-application-service
-   mvn clean install spring-boot:run
+   docker-compose -f docker-compose.yml up -d
    ```
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Usage :desktop_computer:
 
 - Discorvery service hosted on `http://localhost:9090`  
 - Credit score service hosted on `http://localhost:8082`  
@@ -99,7 +66,7 @@ Step 4. Run the loan application service
 ### Swagger UI
 Endpoints : `http://localhost:8080/swagger-ui.html`
 
-## Contributing
+## Contributing 👏
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.  
 
 1. Fork the Project
@@ -108,8 +75,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## License
+## License 📝
 Distributed under the MIT License. See [LICENSE](https://github.com/113-GittiGidiyor-Java-Spring-Bootcamp/gittigidiyor-graduation-project-betul-sahin/blob/main/LICENSE) for more information.  
 
-## Contact
+## Contact 📫 
 [Betül Şahin](https://www.linkedin.com/in/betulsahin/)
