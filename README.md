@@ -29,31 +29,28 @@ Loan application system is a Restfull application which written using with Sprin
 There are 3 modules in the project. Discover service, credit score service and loan application service. Run these services by following the steps below.   
 
 ### Prerequisites
-You should have Maven and JDK 1.8 to build the project.  
-[Maven](https://maven.apache.org/download.cgi)  
-[JDK 1.8](https://www.oracle.com/java/technologies/downloads/#java8)
+You should have Docker to get the project up and running.   
+- [Docker](https://www.docker.com/)  
 
-### Installation
+### Run the Application
 
-Step 1. Clone the repo to your local
+Firstly clone the repo to your local
    ```sh
-   https://github.com/113-GittiGidiyor-Java-Spring-Bootcamp/gittigidiyor-graduation-project-betul-sahin.git
+   git clone https://github.com/113-GittiGidiyor-Java-Spring-Bootcamp/gittigidiyor-graduation-project-betul-sahin.git
    ```
-Step 2. Run the discovery service
+
+Steps to run the application on Docker.
    ```sh
    cd discovery-service
    docker-compose -f docker-compose.yml up -d
-   ```
-Step 3. Run the credit score service
-   ```sh
+   
    cd credit-score-service
    docker-compose -f docker-compose.yml up -d
-   ```
-Step 4. Run the loan application service
-   ```sh
+   
    cd loan-application-service
    docker-compose -f docker-compose.yml up -d
    ```
+
 
 <!-- USAGE EXAMPLES -->
 ## Usage :desktop_computer:
