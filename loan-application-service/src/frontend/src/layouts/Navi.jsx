@@ -23,8 +23,8 @@ export default function Navi() {
         <div>
             <Menu inverted fixed="top">
                 <Container>
-                    <Menu.Item as={ Link } name='home' to='/'/>
-                    <Menu.Item as={ Link } name='apply for loan' to='/apply-for-loan'/>
+                    <Menu.Item as={ Link } name='home' to={'/'}/>
+                    <Menu.Item as={ Link } name='apply for loan' to={'/apply-for-loan'}/>
                     <Menu.Menu position='right'>
                         {isAuthenticated ? <SignedIn signOut={handleSignOut} bisey="1"/> : <SignedOut signIn={handleSignIn} />}
                     </Menu.Menu>

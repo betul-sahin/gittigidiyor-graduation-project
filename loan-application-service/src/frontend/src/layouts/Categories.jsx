@@ -6,8 +6,8 @@ export default function Categories() {
     return (
         <div>
             <Menu pointing vertical>
-                <Menu.Item as={ Link } name='home' to='/'/>
-                <Menu.Item as={ Link } name='apply for loan' to='/apply-for-loan'/>
+                <Menu.Item as={ Link } name='home' to={'/'}/>
+                <Menu.Item as={ Link } name='apply for loan' to={'/apply-for-loan'}/>
             </Menu>
         </div>
     )

@@ -20,21 +20,13 @@ export default function LoanDetail() {
             <Card.Group>
                 <Card fluid>
                     <Card.Content>
-                        <Card.Header>Loan {loan.id} detay sayfasi</Card.Header>
-                        <Card.Meta>Friends of Elliot</Card.Meta>
+                        <Card.Header>{loan.identificationNumber} </Card.Header>
+                        <Card.Meta>Identification number : {loan.identificationNumber}</Card.Meta>
                         <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
+                            <p><strong>Credit Amount :</strong> {loan.creditAmount}</p>
+                            <p><strong>Credit Limit Multiplier :</strong> {loan.creditLimitMultiplier}</p>
+                            <p><strong>Credit Result :</strong> {loan.creditResult}</p>
                         </Card.Description>
-                    </Card.Content>
-                    <Card.Content extra>
-                        <div className='ui two buttons'>
-                            <Button basic color='green'>
-                                Approve
-                            </Button>
-                            <Button basic color='red'>
-                                Decline
-                            </Button>
-                        </div>
                     </Card.Content>
                 </Card>
             </Card.Group>

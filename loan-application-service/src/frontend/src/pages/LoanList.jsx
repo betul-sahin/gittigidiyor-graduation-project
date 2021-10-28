@@ -34,7 +34,7 @@ export default function LoanList() {
                     {loans.map((loan) => (
                         <Table.Row key={loan.id}>
                             <Table.Cell>
-                                <Link to={`/loans/${loan.id}`}>{loan.customerId}</Link>
+                                <Link to={`/loans/${loan.id}`}>{loan.identificationNumber}</Link>
                             </Table.Cell>
                             <Table.Cell>{loan.creditAmount}</Table.Cell>
                             <Table.Cell>{loan.creditLimitMultiplier}</Table.Cell>

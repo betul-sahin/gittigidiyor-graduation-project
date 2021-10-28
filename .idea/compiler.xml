@@ -7,10 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="loan-application-service" />
+        <module name="config-server" />
         <module name="credit-score-service" />
         <module name="discovery-service" />
       </profile>
-      <profile name="Annotation profile for gittigidiyor-graduation-project-betul-sahin" enabled="true">
+      <profile name="Annotation profile for Gittigidiyor Graduation Project" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -20,24 +22,27 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.20/lombok-1.18.20.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok-mapstruct-binding/0.2.0/lombok-mapstruct-binding-0.2.0.jar" />
         </processorPath>
-        <module name="loan-application-service" />
         <module name="backend" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="backend" target="1.8" />
+      <module name="config-server" target="1.8" />
       <module name="credit-score-service" target="1.8" />
       <module name="discovery-service" target="1.8" />
-      <module name="gittigidiyor-graduation-project-betul-sahin" target="8" />
+      <module name="gittigidiyor-graduation-project-betul-sahin" target="1.8" />
       <module name="loan-application-service" target="1.8" />
+      <module name="service-parent" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="backend" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="config-server" options="-parameters" />
       <module name="credit-score-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
-      <module name="loan-application-service" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="loan-application-service" options="-parameters" />
+      <module name="service-parent" options="" />
     </option>
   </component>
 </project>
