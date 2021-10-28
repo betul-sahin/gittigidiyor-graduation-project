@@ -1,0 +1,11 @@
+# Use postgres/mypassword user/password credentials
+version: '3.1'
+
+services:
+  discovery-service:
+    image: betulsahinn/discovery-service:0.0.1-SNAPSHOT
+    restart: always
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
