@@ -16,6 +16,5 @@ public abstract class LoanMapper {
     @Mapping(target = "customer", expression = "java(customerRepository.findByIdentificationNumber(request.getIdentificationNumber()).get())")
     public abstract Loan map(LoanDtoInput request);
 
-    @Mapping(target="customerId", source="customer.id")
     public abstract LoanDtoOutput mapToDto(Loan loan);
 }

@@ -1,8 +1,11 @@
 package com.betulsahin.loanapplicationservice.dtos;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
@@ -12,5 +15,5 @@ public class LoanDtoOutput {
     private double creditAmount;
     private int creditLimitMultiplier;
     private String creditResult;
-    private Long customerId;
+    private String identificationNumber;
 }

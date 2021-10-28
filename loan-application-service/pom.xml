@@ -2,30 +2,27 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.5</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <groupId>com.betulsahin</groupId>
+        <artifactId>service-parent</artifactId>
+        <version>21.10.1</version>
+        <relativePath>../service-parent/pom.xml</relativePath>
     </parent>
+
     <groupId>com.betulsahin</groupId>
     <artifactId>loan-application-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>21.10.1</version>
     <name>loan-application-service</name>
-    <description>loan-application-service</description>
+    <description>Loan application service</description>
+
     <properties>
-        <java.version>1.8</java.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
-        <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
         <io.springfox.version>2.9.2</io.springfox.version>
         <app.image.name>loan-application-service</app.image.name>
         <app.image.tag>0.0.1-SNAPSHOT</app.image.tag>
     </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -45,13 +42,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
-        <!-- mapstruct dependencies -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
         <!-- Twillo Api dependencies -->
         <dependency>
@@ -86,29 +77,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+            <version>3.0.4</version>
+        </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
+                <!--configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <annotationProcessorPaths>
@@ -134,8 +115,7 @@
                             -Amapstruct.defaultComponentModel=spring
                         </compilerArg>
                     </compilerArgs>
-
-                </configuration>
+                </configuration-->
             </plugin>
 
             <plugin>
